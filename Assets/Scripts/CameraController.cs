@@ -8,6 +8,6 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         //Glues camera to the player position.
-        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
+        transform.position = new Vector3(Player.transform.position.x + 1, 0, -10);
     }
 }
