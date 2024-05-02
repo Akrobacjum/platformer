@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         }
         //Checks if there was ground beneath player in previous frame. For JumpAnimator() and stop animation.
         previousGroundCheck = GroundCheckBox();
+        HardAttack();
     }
     void Move()
     {
@@ -121,5 +122,12 @@ public class PlayerController : MonoBehaviour
         //Checks if there is ground beneath player.
         Vector2 orginVector = new Vector3(collider.bounds.size.x, collider.bounds.size.y, collider.bounds.size.z);
         return Physics2D.BoxCast(collider.bounds.center, orginVector, 0f, Vector2.down, 0.1f, groundMask);
+    }
+    public void HardAttack()
+    {
+        if (Input.GetButtonDown("Hard Attack"))
+        {
+            Stats.stamina = Stats.stamina - Stats.staminaHardAttak;
+        }
     }
 }

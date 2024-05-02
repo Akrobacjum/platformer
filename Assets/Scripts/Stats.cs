@@ -12,6 +12,9 @@ public class Stats : MonoBehaviour
     public float staminaMax;
     public int staminaRegenPerSec;
     public int staminaRunPerSec;
+    public int staminaJump;
+
+    public int staminaHardAttak;
 
     public bool staminaRegen;
     public bool staminaRun;
@@ -47,7 +50,7 @@ public class Stats : MonoBehaviour
         }
         stamina = stamina + staminaRegenPerSec * Time.deltaTime;
         StatsCheck();
-        //Debug.Log("Entity Stamina: " + stamina);
+        Debug.Log("Entity Stamina: " + stamina);
         yield return null;
         staminaRegen = false;
     }
@@ -58,7 +61,7 @@ public class Stats : MonoBehaviour
         staminaRun = true;
         stamina = stamina - staminaRunPerSec * Time.deltaTime;
         StatsCheck();
-        //Debug.Log("Entity Stamina: " + stamina);
+        Debug.Log("Entity Stamina: " + stamina);
         yield return null; ;
         staminaRun = false;
     }
