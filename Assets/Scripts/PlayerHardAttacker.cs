@@ -56,7 +56,7 @@ public class PlayerHardAttacker : MonoBehaviour
         coroutineStarted = true;
         Animator.SetBool("Attacking", true);
         Stats.stamina = Stats.stamina - Stats.staminaHardAttak;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         Animator.SetBool("Attacking", false);
         coroutineStarted = false;
     }

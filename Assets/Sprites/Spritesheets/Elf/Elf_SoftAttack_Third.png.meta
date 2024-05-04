@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -111,8 +111,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a36c2c1379701f8418ca2993177812d2
-      internalID: -398965039
+      spriteID: 895d2349e8f9afe4bb9529a3d33540b8
+      internalID: 2134228476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elf_SoftAttack_Third_1
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 0
+        width: 228
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f04dbcfa023ee004280acff815352ff9
+      internalID: 1381398416
       vertices: []
       indices: 
       edges: []
@@ -128,7 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Elf_SoftAttack_Third_0: -398965039
+      Elf_SoftAttack_Third_0: 2134228476
+      Elf_SoftAttack_Third_1: 1381398416
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

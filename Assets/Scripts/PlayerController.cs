@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public Stats Stats;
 
     public Rigidbody2D rigBody2D;
-    Collider2D collider;
+    private new Collider2D collider;
 
     public float dirX;
 

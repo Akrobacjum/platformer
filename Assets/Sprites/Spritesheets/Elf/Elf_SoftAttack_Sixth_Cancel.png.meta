@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e881889b5bc30e448aeb3c6febabd82
-      internalID: -1243729456
+      spriteID: 4502cb1fc3d8a2144b15ef72fa90d98f
+      internalID: 809889555
       vertices: []
       indices: 
       edges: []
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 148129c5f3f6400468a36dacdee7d324
-      internalID: -642425167
+      spriteID: 1ba43f02e04e8cb40bb9e3f7487133ef
+      internalID: -1903403841
       vertices: []
       indices: 
       edges: []
@@ -149,8 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Elf_SoftAttack_Sixth_Cancel_0: -1243729456
-      Elf_SoftAttack_Sixth_Cancel_1: -642425167
+      Elf_SoftAttack_Sixth_Cancel_0: 809889555
+      Elf_SoftAttack_Sixth_Cancel_1: -1903403841
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
