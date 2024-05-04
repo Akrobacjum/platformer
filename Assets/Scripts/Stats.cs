@@ -15,6 +15,7 @@ public class Stats : MonoBehaviour
     public int staminaJump;
 
     public int staminaHardAttak;
+    public int staminaSoftAttak;
 
     public bool staminaRegen;
     public bool staminaRun;

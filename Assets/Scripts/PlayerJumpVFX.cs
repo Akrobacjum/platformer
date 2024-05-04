@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerJumpVFX : MonoBehaviour
+{
+    [SerializeField] GameObject Player;
+    [SerializeField] GameObject Light;
+    PlayerController PlayerController;
+    Stats Stats;
+
+    public Animator JumpVFXAnimator;
+    private SpriteRenderer Renderer;
+
+    bool isEnabled = false;
+    void Start()
+    {
+        JumpVFXAnimator = GetComponent<Animator>();
+        PlayerController = Player.GetComponent<PlayerController>();
+        Stats = Player.GetComponent<Stats>();
+        Renderer = GetComponent<SpriteRenderer>();
+
+        Renderer.enabled = false;
+        Light.SetActive(false);
+    }
+    void Update()
+    {
+        if (isEnabled == false)
+        {
+            transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y - 0.5f);
+        }
+        JumpVFXChecker();
+    }
+    void JumpVFXChecker()
+    {
+        if (Input.GetButtonDown("Jump") && PlayerController.jumpCount > 0 && PlayerController.jumpCount < PlayerController.maxJumpCount && Stats.stamina >= Stats.staminaJump)
+        {
+            isEnabled = true;
+            Renderer.enabled = true;
+            JumpVFXAnimator.SetTrigger("JumpVFX");
+            Light.SetActive(true);
+        }
+    }
+    public void JumpVFXKiller()
+    {
+        isEnabled = false;
+        Renderer.enabled = false;
+        Light.SetActive(false);
+        JumpVFXAnimator.ResetTrigger("JumpVFX");
+    }
+}

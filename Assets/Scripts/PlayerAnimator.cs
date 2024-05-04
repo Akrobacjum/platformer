@@ -13,14 +13,6 @@ public class PlayerAnimator : MonoBehaviour
     public Stats Stats;
 
     Animator animator;
-    SpriteRenderer renderer;
-
-    //For future use (normal maps).
-    [SerializeField] Material ElfIdleMaterial;
-    [SerializeField] Material ElfWalkMaterial;
-    [SerializeField] Material ElfRunMaterial;
-    [SerializeField] Material ElfJumpMaterial;
-    [SerializeField] Material ElfStopMaterial;
 
     bool input = false;
     bool previousInput = false;
@@ -30,8 +22,6 @@ public class PlayerAnimator : MonoBehaviour
         Stats = GetComponent<Stats>();
 
         animator = GetComponent<Animator>();
-        renderer = GetComponent<SpriteRenderer>();
-        renderer.material = ElfIdleMaterial;
     }
     void Update()
     {
@@ -60,10 +50,6 @@ public class PlayerAnimator : MonoBehaviour
         //Sets player speed as absolute speed variable for walk animation.
         animator.SetBool("Input", PlayerController.dirX != 0);
         animator.SetFloat("Speed", Mathf.Abs(PlayerController.rigBody2D.velocity.x));
-        if (Mathf.Abs(PlayerController.rigBody2D.velocity.x) > 0)
-        {
-            renderer.material = ElfWalkMaterial;
-        }
     }
     public void Jump()
     {
@@ -71,8 +57,7 @@ public class PlayerAnimator : MonoBehaviour
         if (Input.GetButtonDown("Jump") && PlayerController.jumpCount < PlayerController.maxJumpCount && Stats.stamina >= 5)
         {
             //Removes required stamina. Sets trigger for jump animation. Uses PlayerController.JumpForce() in animation event.
-            Stats.stamina = Stats.stamina - 5;
-            renderer.material = ElfJumpMaterial;
+            Stats.stamina = Stats.stamina - Stats.staminaJump;
             animator.SetTrigger("Jump");
         }
     }
@@ -83,19 +68,16 @@ public class PlayerAnimator : MonoBehaviour
         {
             if (Mathf.Abs((float)PlayerController.rigBody2D.velocity.x) > 1 && (Input.GetButton("Run")))
             {
-                renderer.material = ElfRunMaterial;
                 animator.SetBool("Run", true);
             }
             else if (Mathf.Abs((float)PlayerController.rigBody2D.velocity.x) > 0.9)
             {
-                renderer.material = ElfWalkMaterial;
                 animator.SetBool("Run", false);
                 input = true;
                 animator.SetBool("Input", previousInput);
             }
             else
             {
-                renderer.material = ElfStopMaterial;
                 animator.SetBool("Run", false);
                 input = false;
                 animator.SetBool("Input", previousInput);
@@ -107,12 +89,10 @@ public class PlayerAnimator : MonoBehaviour
         //Sets triggers for stop animation while jumping.
         if (PlayerController.previousGroundCheck == false && PlayerController.GroundCheckBox())
         {
-            renderer.material = ElfStopMaterial;
             animator.SetTrigger("Stop");
         }
         else if (PlayerController.previousGroundCheck == true && PlayerController.GroundCheckBox())
         {
-            renderer.material = ElfIdleMaterial;
             animator.ResetTrigger("Stop");
         }
     }

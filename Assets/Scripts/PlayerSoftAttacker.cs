@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal.Internal;
 
-public class PlayerHardAttacker : MonoBehaviour
+public class PlayerSoftAttacker : MonoBehaviour
 {
     public Animator Animator;
     private SpriteRenderer Renderer;
@@ -12,7 +11,7 @@ public class PlayerHardAttacker : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Light;
 
-    bool hardAttackTrue = false;
+    bool softAttackTrue = false;
     bool coroutineStarted = false;
     void Start()
     {
@@ -25,13 +24,13 @@ public class PlayerHardAttacker : MonoBehaviour
     }
     void Update()
     {
-        HardAttack();
+        SoftAttack();
     }
-    public void HardAttack()
+    public void SoftAttack()
     {
-        if (Input.GetButtonDown("Hard Attack") && Stats.stamina >= Stats.staminaHardAttak)
+        if (Input.GetButtonDown("Soft Attack") && Stats.stamina >= Stats.staminaSoftAttak)
         {
-            if (hardAttackTrue == true)
+            if (softAttackTrue == true)
             {
                 if (coroutineStarted == false)
                 {
@@ -43,27 +42,27 @@ public class PlayerHardAttacker : MonoBehaviour
                 Debug.Log("Attack");
                 Renderer.enabled = true;
                 Light.SetActive(true);
+                Animator.ResetTrigger("FinalSwingDone");
                 Animator.SetTrigger("AttackingStart");
                 Animator.SetBool("Attacking", false);
-                hardAttackTrue = true;
-                Stats.stamina = Stats.stamina - Stats.staminaHardAttak;
+                softAttackTrue = true;
+                Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
             }
-
         }
     }
     private IEnumerator NextSwing()
     {
         coroutineStarted = true;
         Animator.SetBool("Attacking", true);
-        Stats.stamina = Stats.stamina - Stats.staminaHardAttak;
-        yield return new WaitForSeconds(1);
+        Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
+        yield return new WaitForSeconds(0.25f);
         Animator.SetBool("Attacking", false);
         coroutineStarted = false;
     }
-    public void HardAttackKiller()
+    public void SoftAttackKiller()
     {
         Animator.ResetTrigger("AttackingStart");
-        hardAttackTrue = false;
+        softAttackTrue = false;
         Renderer.enabled = false;
         Light.SetActive(false);
     }
