@@ -55,7 +55,7 @@ public class PlayerSoftAttacker : MonoBehaviour
         coroutineStarted = true;
         Animator.SetBool("Attacking", true);
         Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.75f);
         Animator.SetBool("Attacking", false);
         coroutineStarted = false;
     }
