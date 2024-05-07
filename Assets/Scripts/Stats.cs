@@ -14,6 +14,9 @@ public class Stats : MonoBehaviour
     public int staminaRunPerSec;
     public int staminaJump;
 
+    [SerializeField] ProgressBar StaminaBar;
+    [SerializeField] ProgressBar HealthBar;
+
     public int staminaHardAttak;
     public int staminaSoftAttak;
 
@@ -24,6 +27,9 @@ public class Stats : MonoBehaviour
         //Sets player statistics to maximum at scene's starts.
         health = healthMax;
         stamina = staminaMax;
+
+        StaminaBar.SetMaxValue((int)stamina);
+        HealthBar.SetMaxValue((int)health);
 
         Debug.Log("Entity Health" + health);
     }
@@ -36,6 +42,10 @@ public class Stats : MonoBehaviour
         //Checks if statistics are mathematically correct and restrained every frame. Also checks if entity should be slain.
         health = Mathf.Clamp(health, 0, healthMax);
         stamina = Mathf.Clamp(stamina, 0, staminaMax);
+
+        StaminaBar.SetCurrentValue((int)stamina);
+        HealthBar.SetCurrentValue((int)health);
+
         if (health <= 0)
         {
             EntitySlay();

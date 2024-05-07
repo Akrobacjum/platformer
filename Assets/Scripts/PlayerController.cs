@@ -118,8 +118,10 @@ public class PlayerController : MonoBehaviour
     }
     public bool GroundCheckBox()
     {
-        //Checks if there is ground beneath player.
-        Vector2 orginVector = new Vector3(collider.bounds.size.x, collider.bounds.size.y, collider.bounds.size.z);
-        return Physics2D.BoxCast(collider.bounds.center, orginVector, 0f, Vector2.down, 0.1f, groundMask);
+
+        Vector2 sizeVector = new Vector2(collider.bounds.size.x, collider.bounds.size.y - 1f);
+        Vector2 originVector = new Vector2(collider.transform.position.x, collider.transform.position.y - 0.9f);
+
+        return Physics2D.BoxCast(originVector, sizeVector, 0f, Vector2.down, 0.1f, groundMask);
     }
 }
