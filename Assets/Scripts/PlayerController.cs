@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     PlayerAnimator PlayerAnimator;
     public Stats Stats;
 
+    public PlayerJumpVFX PlayerJumpVFX;
     public Rigidbody2D rigBody2D;
     private new Collider2D collider;
 
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     public Transform Spawn;
 
-    [SerializeField] float walkSpeed;
+    public float walkSpeed;
     [SerializeField] float maxSpeed;
     [SerializeField] float acceleration;
     [SerializeField] float jumpForce;
@@ -51,37 +52,27 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        
         Move();
-        //No fucking idea.
-        if (currentJumpTime <= 0)
+        Jump();
+        if(GroundCheckBox() == true)
         {
-            //Checks if there is ground beneath player.
-            if (GroundCheckBox())
-            {
-                jumpCount = 0f;
-            }
-            //Sets triggers for stop animation while jumping. Uses JumpForce() through animation event.
-            PlayerAnimator.Jump();
+            jumpCount = 1;
         }
-        else
-        {
-            //Calculates jump time.
-            currentJumpTime += Time.deltaTime;
-            if (currentJumpTime >= minJumpTime)
-            {
-                currentJumpTime = 0;
-            }
-        }
+        
+        
         //Checks if there was ground beneath player in previous frame. For JumpAnimator() and stop animation.
         previousGroundCheck = GroundCheckBox();
     }
     void Move()
     {
-        //Reads horizontal input and sets it as direction.
+       
         dirX = Input.GetAxisRaw("Horizontal");
-        //Checks if player tries to run and if he has enough stamina.
+
+       
         if (Input.GetButton("Run") && Stats.stamina >= 2)
         {
+            PlayerAnimator.Run();
             //Checks if there is already an existing stamina running coroutine.
             if (Stats.staminaRun == false)
             {
@@ -97,6 +88,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             //Checks if there is already an existing stamina regeneration running coroutine.
+            PlayerAnimator.StopRun();   
             if (Stats.staminaRegen == false)
             {
                 StartCoroutine(Stats.StaminaRegen());
@@ -108,13 +100,43 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    void Jump()
+    {
+
+        if (currentJumpTime <= 0)
+        {
+            //Checks if there is ground beneath player.
+            if (Input.GetButtonDown("Jump") &&  GroundCheckBox() == true)
+            {
+                
+                PlayerAnimator.Jump();
+                JumpForce();    
+            }
+            else if(Input.GetButtonDown("Jump") && GroundCheckBox() == false && jumpCount> 0)
+            {
+                PlayerAnimator.Jump();
+                JumpForce();
+                PlayerJumpVFX.LaunchVfx();
+                jumpCount -= 1;
+            }
+            
+        }
+        else
+        {
+            currentJumpTime += Time.deltaTime;
+            if (currentJumpTime >= minJumpTime)
+            {
+                currentJumpTime = 0;
+            }
+        }
+    }
     public void JumpForce()
     {
         //Sets jump force. Used through PlayerAnimator in animation event.
         currentJumpTime += Time.deltaTime;
         float rigVX = rigBody2D.velocity.x;
         rigBody2D.velocity = new Vector2(rigVX, jumpForce);
-        jumpCount++;
+        
     }
     public bool GroundCheckBox()
     {

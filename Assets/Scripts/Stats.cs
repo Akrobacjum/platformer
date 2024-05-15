@@ -31,7 +31,7 @@ public class Stats : MonoBehaviour
         StaminaBar.SetMaxValue((int)stamina);
         HealthBar.SetMaxValue((int)health);
 
-        Debug.Log("Entity Health" + health);
+        
     }
     void Update()
     {

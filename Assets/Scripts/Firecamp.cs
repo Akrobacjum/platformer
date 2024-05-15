@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 //To solve: Interaction and unlocking is working, but with significant delay.
@@ -11,6 +12,8 @@ public class Firecamp : MonoBehaviour
     [SerializeField] GameObject Spawnpoint;
     [SerializeField] GameObject Player;
     [SerializeField] GameObject UIManager;
+
+    [SerializeField] TextMeshPro fireText;
 
     UIManager UIManagerScript;
     Stats Stats;
@@ -33,6 +36,7 @@ public class Firecamp : MonoBehaviour
         if (isUnlocked)
         {
             FireCampMapButton.SetActive(true);
+            fireText.SetText("Active");
         }
         else
         {
@@ -55,6 +59,7 @@ public class Firecamp : MonoBehaviour
             if (isUnlocked && Input.GetButtonDown("Interact"))
             {
                 Debug.Log("Campfire: Interaction");
+
             }
             else if (Input.GetButtonDown("Interact"))
             {
