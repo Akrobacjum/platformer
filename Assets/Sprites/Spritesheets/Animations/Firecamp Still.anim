@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TorchBurning
+  m_Name: Firecamp Still
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 327147549, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
+      value: {fileID: -1406184125, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
     - time: 0.25
-      value: {fileID: -1769400393, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
+      value: {fileID: 793971548, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
     - time: 0.5
-      value: {fileID: -541468371, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
+      value: {fileID: 537714911, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
     - time: 0.75
-      value: {fileID: -641533803, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
+      value: {fileID: 2077284225, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 327147549, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
-    - {fileID: -1769400393, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
-    - {fileID: -541468371, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
-    - {fileID: -641533803, guid: 986f22296c2b4814fa495fb653fa861e, type: 3}
+    - {fileID: -1406184125, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
+    - {fileID: 793971548, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
+    - {fileID: 537714911, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
+    - {fileID: 2077284225, guid: 8304027b0e01c924abacd6b58bc2fcde, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
