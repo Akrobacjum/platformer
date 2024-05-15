@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.Rendering.DebugUI;
 
 //To solve: Stopping animation plays during changing directions while running.
 public class PlayerAnimator : MonoBehaviour
@@ -12,8 +6,9 @@ public class PlayerAnimator : MonoBehaviour
     public PlayerController PlayerController;
     public Stats Stats;
 
-    Animator animator;
+    public Animator animator;
 
+    float playerSpeed;
     bool input = false;
     bool previousInput = false;
     void Start()
@@ -25,11 +20,13 @@ public class PlayerAnimator : MonoBehaviour
     }
     void Update()
     {
+        playerSpeed = Mathf.Abs((float)PlayerController.rigBody2D.velocity.x);
         MoveAnimator();
-        RunAnimator();
-        JumpAnimator();
+        
+        StopAnimator();
         Flip();
         previousInput = input;
+
     }
     void Flip()
     {
@@ -49,42 +46,24 @@ public class PlayerAnimator : MonoBehaviour
     {
         //Sets player speed as absolute speed variable for walk animation.
         animator.SetBool("Input", PlayerController.dirX != 0);
-        animator.SetFloat("Speed", Mathf.Abs(PlayerController.rigBody2D.velocity.x));
+        animator.SetFloat("Speed", playerSpeed);
     }
     public void Jump()
     {
-        //Checks if player is able to jump regarding his jump limit and stamina.
-        if (Input.GetButtonDown("Jump") && PlayerController.jumpCount < PlayerController.maxJumpCount && Stats.stamina >= 5)
-        {
-            //Removes required stamina. Sets trigger for jump animation. Uses PlayerController.JumpForce() in animation event.
-            Stats.stamina = Stats.stamina - Stats.staminaJump;
-            animator.SetTrigger("Jump");
-        }
+        animator.SetTrigger("Jump");
+
     }
-    void RunAnimator()
+    public void Run()
     {
         //Sets triggers for run and stop animation.
-        if (Stats.stamina >= 2)
-        {
-            if (Mathf.Abs((float)PlayerController.rigBody2D.velocity.x) > 1 && (Input.GetButton("Run")))
-            {
-                animator.SetBool("Run", true);
-            }
-            else if (Mathf.Abs((float)PlayerController.rigBody2D.velocity.x) > 0.9)
-            {
-                animator.SetBool("Run", false);
-                input = true;
-                animator.SetBool("Input", previousInput);
-            }
-            else
-            {
-                animator.SetBool("Run", false);
-                input = false;
-                animator.SetBool("Input", previousInput);
-            }
-        }
+        animator.SetBool("Run",true);   
+
     }
-    void JumpAnimator()
+    public void StopRun()
+    {
+        animator.SetBool("Run",false);
+    }
+    void StopAnimator()
     {
         //Sets triggers for stop animation while jumping.
         if (PlayerController.previousGroundCheck == false && PlayerController.GroundCheckBox())

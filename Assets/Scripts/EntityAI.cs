@@ -23,7 +23,7 @@ public class EntityAI : MonoBehaviour
     {
         if (lineOfSight)
         {
-            Debug.Log("IShowSpeed");
+            
             transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
         }
         else
