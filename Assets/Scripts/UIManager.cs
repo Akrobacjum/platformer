@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject Menu;
     [SerializeField] GameObject CharacterSubmenu;
     [SerializeField] GameObject MapSubmenu;
+    [SerializeField] Image panelImage;
+    [SerializeField] float duration = 1.0f;
+    [SerializeField] TextMeshProUGUI panelText;
 
     bool MenuActive;
     bool CharacterSubmenuActive;
@@ -24,6 +29,12 @@ public class UIManager : MonoBehaviour
 
         MapSubmenu.SetActive(false);
         MapSubmenuActive = false;
+
+        Color panelStartColor = panelImage.color;
+        panelImage.color = new Color(panelStartColor.r, panelStartColor.g, panelStartColor.b, 0);
+
+        Color textStartColor = panelText.color;
+        panelText.color = new Color(textStartColor.r, textStartColor.g, textStartColor.b, 0);
     }
     private void Update()
     {
@@ -92,6 +103,36 @@ public class UIManager : MonoBehaviour
             MapSubmenuActive = false;
         }
     }
+
+    public void DeathScreen()
+    {
+        StartCoroutine(BlendAlpha(0, 1, duration));
+        Debug.Log("TimerStarted");
+    }
+    private IEnumerator BlendAlpha(float startAlpha, float endAlpha, float duration)
+    {
+        float elapsedTime = 0f;
+
+        Color panelStartColor = panelImage.color;
+        Color panelEndColor = new Color(panelStartColor.r, panelStartColor.g, panelStartColor.b, endAlpha);
+
+        Color textStartColor = panelText.color;
+        Color textEndColor = new Color(textStartColor.r, textStartColor.g, textStartColor.b, endAlpha);
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
+            panelImage.color = new Color(panelStartColor.r, panelStartColor.g, panelStartColor.b, alpha);
+            panelText.color = new Color(textStartColor.r, textStartColor.g, textStartColor.b, alpha);
+            yield return null;
+        }
+
+        // Ensure the final color is set
+        panelImage.color = panelEndColor;
+        panelText.color = textEndColor;
+    }
+   
     public void OnClickChangeScene(int sceneNumberInBuildSetting)
     {
         //Changes scene.

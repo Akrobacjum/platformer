@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     PlayerAnimator PlayerAnimator;
     public Stats Stats;
-
+    public UIManager Manager;
     public PlayerJumpVFX PlayerJumpVFX;
     public Rigidbody2D rigBody2D;
     private new Collider2D collider;
@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed;
     private float minJumpTime = 0.3f;
     private float currentJumpTime;
+
+    bool isDead = false;
     void Start()
     {
         PlayerAnimator = GetComponent<PlayerAnimator>();
@@ -45,12 +47,22 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        playerSpeed = Mathf.Abs((float)rigBody2D.velocity.x);
-        RegenType();
-        Move();
-        Jump();
-
+        if (Stats.health <= 0f)
+        {
+            Dead();
+            
+        }
+        else
+        {
+            playerSpeed = Mathf.Abs((float)rigBody2D.velocity.x);
+            RegenType();
+            Move();
+            Jump();
+        }
         
+
+
+
         if (GroundCheckBox() == true)
         {
             jumpCount = 1;
@@ -130,7 +142,8 @@ public class PlayerController : MonoBehaviour
                     PlayerAnimator.Jump();
                     Stats.stamina -= Stats.staminaJump;
                     JumpForce();
-                    PlayerJumpVFX.LaunchVfx();
+                    PlayerJumpVFX.Instantiate(this, transform.position, Quaternion.Euler(0, 0, 0));
+                    //PlayerJumpVFX.LaunchVfx();
                     jumpCount -= 1;
                 }
             }
@@ -155,9 +168,19 @@ public class PlayerController : MonoBehaviour
     public bool GroundCheckBox()
     {
 
-        Vector2 sizeVector = new Vector2(collider.bounds.size.x, collider.bounds.size.y - 1f);
+        Vector2 sizeVector = new Vector2(collider.bounds.size.x - 0.2f, collider.bounds.size.y - 1f);
         Vector2 originVector = new Vector2(collider.transform.position.x, collider.transform.position.y - 0.9f);
 
         return Physics2D.BoxCast(originVector, sizeVector, 0f, Vector2.down, 0.1f, groundMask);
+    }
+
+    void Dead()
+    {
+        if (isDead == false)
+        {
+            Debug.Log("You Died");
+            Manager.DeathScreen();
+            isDead = true;
+        }
     }
 }
