@@ -12,19 +12,24 @@ public class Firecamp : MonoBehaviour
     [SerializeField] GameObject Spawnpoint;
     [SerializeField] GameObject Player;
     [SerializeField] GameObject UIManager;
+    [SerializeField] ParticleSystem Effect;
 
-    [SerializeField] TextMeshPro fireText;
+    //[SerializeField] TextMeshPro fireText;
 
     UIManager UIManagerScript;
     Stats Stats;
+    Animator Animator;
 
     public bool isUnlocked = false;
     bool PlayerTrigger;
 
     void Start()
     {
+        Effect.Pause();
+        Effect.Clear();
         UIManagerScript = UIManager.GetComponent<UIManager>();
         Stats = Player.GetComponent<Stats>();
+        Animator = GetComponent<Animator>();
 
         //Unlocking firecamp should be loaded from player prefs, turn on before creating a build.
         //isUnlocked = PlayerPrefs.GetInt("isUnlocked") == 1 ? true : false;
@@ -36,7 +41,7 @@ public class Firecamp : MonoBehaviour
         if (isUnlocked)
         {
             FireCampMapButton.SetActive(true);
-            fireText.SetText("Active");
+            //fireText.SetText("Active");
         }
         else
         {
@@ -64,6 +69,8 @@ public class Firecamp : MonoBehaviour
             else if (Input.GetButtonDown("Interact"))
             {
                 isUnlocked = true;
+                Animator.SetBool("isUnlocked", true);
+                Effect.Play();
                 Debug.Log("Campfire: " + isUnlocked);
             }
         }
