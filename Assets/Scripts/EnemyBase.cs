@@ -61,7 +61,9 @@ public class EnemyBase : MonoBehaviour
     {
         Vector2 myPosition = transform.position;
         Vector2 pointPostion = wayPoints[currentPoint].transform.position;
-        if (Vector2.Distance(myPosition, pointPostion) <= 0.1f)
+
+        Vector2 newPostion = new Vector2(pointPostion.x, myPosition.y);
+        if (Vector2.Distance(myPosition, newPostion) <= 0.1f)
         {
             currentPoint++;
         }
@@ -75,8 +77,10 @@ public class EnemyBase : MonoBehaviour
     {
         Vector2 myPosition = transform.position;
         Vector2 pointPostion = wayPoints[currentPoint].transform.position;
+        
+        Vector2 newPosition = new Vector2(pointPostion.x, myPosition.y);
 
-        transform.position = Vector2.MoveTowards(myPosition, pointPostion, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(myPosition, newPosition, speed * Time.deltaTime);
     }
 
     void RayCast()
@@ -107,8 +111,9 @@ public class EnemyBase : MonoBehaviour
     void ChasePlayer()
     {
         Vector2 myPosition = transform.position;
+        Vector2 playerPostionX = new Vector2(Player.transform.position.x, myPosition.y);
 
-        transform.position = Vector2.MoveTowards(myPosition, Player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(myPosition, playerPostionX, speed * Time.deltaTime);
     }
 
 

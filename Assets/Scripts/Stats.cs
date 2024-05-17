@@ -10,7 +10,10 @@ public class Stats : MonoBehaviour
 
     public float stamina;
     public float staminaMax;
-    public int staminaRegenPerSec;
+    public int staminaRegenWhileWalking;
+    public int staminaRegenWhileStanding;
+    public int regen;
+
     public int staminaRunPerSec;
     public int staminaJump;
 
@@ -30,13 +33,16 @@ public class Stats : MonoBehaviour
 
         StaminaBar.SetMaxValue((int)stamina);
         HealthBar.SetMaxValue((int)health);
-
+        regen = staminaRegenWhileStanding;
         
     }
     void Update()
     {
+        
         StatsCheck();
     }
+
+  
     void StatsCheck()
     {
         //Checks if statistics are mathematically correct and restrained every frame. Also checks if entity should be slain.
@@ -59,21 +65,23 @@ public class Stats : MonoBehaviour
         {
             staminaRun = false;
         }
-        stamina = stamina + staminaRegenPerSec * Time.deltaTime;
+        stamina = stamina + regen * Time.deltaTime;
         StatsCheck();
-        Debug.Log("Entity Stamina: " + stamina);
+        //Debug.Log("Entity Stamina: " + stamina);
         yield return null;
         staminaRegen = false;
     }
     public IEnumerator StaminaRun()
     {
-        //Decreases stamina, checks if stamina number is correct and waits for one second before allowing next stamina run coroutine. Turns off stamina regen coroutine.
+        
         StopCoroutine(StaminaRegen());
         staminaRun = true;
         stamina = stamina - staminaRunPerSec * Time.deltaTime;
         StatsCheck();
-        Debug.Log("Entity Stamina: " + stamina);
+
+        //Debug.Log("Entity Stamina: " + stamina);
         yield return null; ;
+
         staminaRun = false;
     }
     void EntitySlay()

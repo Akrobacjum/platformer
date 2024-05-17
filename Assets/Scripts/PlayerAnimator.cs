@@ -20,7 +20,7 @@ public class PlayerAnimator : MonoBehaviour
     }
     void Update()
     {
-        playerSpeed = Mathf.Abs((float)PlayerController.rigBody2D.velocity.x);
+        playerSpeed = PlayerController.playerSpeed;
         MoveAnimator();
         
         StopAnimator();

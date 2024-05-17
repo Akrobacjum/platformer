@@ -1,11 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 //To solve: GroundCheckBox() always returning false.
 public class PlayerController : MonoBehaviour
@@ -32,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public float jumpCount;
     public float maxJumpCount;
     public bool previousGroundCheck;
-
+    public float playerSpeed;
     private float minJumpTime = 0.3f;
     private float currentJumpTime;
     void Start()
@@ -52,43 +45,61 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        
+        playerSpeed = Mathf.Abs((float)rigBody2D.velocity.x);
+        RegenType();
         Move();
         Jump();
-        if(GroundCheckBox() == true)
+
+        
+        if (GroundCheckBox() == true)
         {
             jumpCount = 1;
         }
-        
-        
+
+
         //Checks if there was ground beneath player in previous frame. For JumpAnimator() and stop animation.
         previousGroundCheck = GroundCheckBox();
     }
+    void RegenType()
+    {
+        if(playerSpeed != 0f)
+        {
+            Stats.regen = Stats.staminaRegenWhileWalking;
+        }
+        else
+        {
+            Stats.regen = Stats.staminaRegenWhileStanding;
+        }
+    }
     void Move()
     {
-       
+
         dirX = Input.GetAxisRaw("Horizontal");
 
-       
-        if (Input.GetButton("Run") && Stats.stamina >= 2)
+
+        if (Input.GetButton("Run") && Stats.stamina >= 2) //RUNING
         {
             PlayerAnimator.Run();
-            //Checks if there is already an existing stamina running coroutine.
+            
+
             if (Stats.staminaRun == false)
             {
                 StartCoroutine(Stats.StaminaRun());
             }
-            //Calculates acceleration. Restricts actual speed to speed limit.
+
+            //Acceleration
             speed = speed + (maxSpeed * Time.deltaTime * acceleration);
             speed = Mathf.Clamp(speed, 0, maxSpeed);
-            //Calculates running speed.
+
+            //Running speed
             float rigVY = rigBody2D.velocity.y;
             rigBody2D.velocity = new Vector2(dirX * speed, rigVY);
         }
-        else
+        else //NOT RUNING
         {
-            //Checks if there is already an existing stamina regeneration running coroutine.
-            PlayerAnimator.StopRun();   
+            
+            PlayerAnimator.StopRun();
+            
             if (Stats.staminaRegen == false)
             {
                 StartCoroutine(Stats.StaminaRegen());
@@ -105,21 +116,25 @@ public class PlayerController : MonoBehaviour
 
         if (currentJumpTime <= 0)
         {
-            //Checks if there is ground beneath player.
-            if (Input.GetButtonDown("Jump") &&  GroundCheckBox() == true)
+            if (Stats.stamina > Stats.staminaJump)
             {
-                
-                PlayerAnimator.Jump();
-                JumpForce();    
+                 if (Input.GetButtonDown("Jump") && GroundCheckBox() == true)
+                {
+
+                    PlayerAnimator.Jump();
+                    Stats.stamina -= Stats.staminaJump;
+                    JumpForce();
+                }
+                else if (Input.GetButtonDown("Jump") && GroundCheckBox() == false && jumpCount > 0)
+                {
+                    PlayerAnimator.Jump();
+                    Stats.stamina -= Stats.staminaJump;
+                    JumpForce();
+                    PlayerJumpVFX.LaunchVfx();
+                    jumpCount -= 1;
+                }
             }
-            else if(Input.GetButtonDown("Jump") && GroundCheckBox() == false && jumpCount> 0)
-            {
-                PlayerAnimator.Jump();
-                JumpForce();
-                PlayerJumpVFX.LaunchVfx();
-                jumpCount -= 1;
-            }
-            
+
         }
         else
         {
@@ -136,7 +151,6 @@ public class PlayerController : MonoBehaviour
         currentJumpTime += Time.deltaTime;
         float rigVX = rigBody2D.velocity.x;
         rigBody2D.velocity = new Vector2(rigVX, jumpForce);
-        
     }
     public bool GroundCheckBox()
     {
