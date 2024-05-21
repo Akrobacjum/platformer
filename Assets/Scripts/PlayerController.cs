@@ -6,13 +6,15 @@ public class PlayerController : MonoBehaviour
     PlayerAnimator PlayerAnimator;
     public Stats Stats;
     public UIManager Manager;
-    public PlayerJumpVFX PlayerJumpVFX;
+    public PlayerJumpVFX JumpVFX;
     public Rigidbody2D rigBody2D;
     private new Collider2D collider;
 
     public float dirX;
 
     public LayerMask groundMask;
+
+    public LayerMask platformMask;
     public Transform Spawn;
 
     public float walkSpeed;
@@ -130,7 +132,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Stats.stamina > Stats.staminaJump)
             {
-                 if (Input.GetButtonDown("Jump") && GroundCheckBox() == true)
+                MoveThroughPlatform();
+                if (Input.GetButtonDown("Jump") && GroundCheckBox() == true)
                 {
 
                     PlayerAnimator.Jump();
@@ -142,10 +145,12 @@ public class PlayerController : MonoBehaviour
                     PlayerAnimator.Jump();
                     Stats.stamina -= Stats.staminaJump;
                     JumpForce();
-                    PlayerJumpVFX.Instantiate(this, transform.position, Quaternion.Euler(0, 0, 0));
-                    //PlayerJumpVFX.LaunchVfx();
+                    //Instantiate(JumpVFX, transform.position, Quaternion.Euler(0, 0, 0));
+                    JumpVFX.LaunchVfx();
                     jumpCount -= 1;
                 }
+
+                
             }
 
         }
@@ -173,7 +178,23 @@ public class PlayerController : MonoBehaviour
 
         return Physics2D.BoxCast(originVector, sizeVector, 0f, Vector2.down, 0.1f, groundMask);
     }
+    public bool PlatformCheckBox()
+    {
 
+        Vector2 sizeVector = new Vector2(collider.bounds.size.x - 0.2f, collider.bounds.size.y - 1f);
+        Vector2 originVector = new Vector2(collider.transform.position.x, collider.transform.position.y - 0.9f);
+
+        return Physics2D.BoxCast(originVector, sizeVector, 0f, Vector2.down, 0.1f, platformMask);
+    }
+    void MoveThroughPlatform()
+    {
+        if (Input.GetButtonDown("Jump") && Input.GetKeyDown(KeyCode.S) && GroundCheckBox() == false && PlatformCheckBox() == true)
+        {
+            Debug.Log("Platforma");
+            collider.isTrigger = true;
+        }
+
+    }
     void Dead()
     {
         if (isDead == false)

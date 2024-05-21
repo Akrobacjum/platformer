@@ -13,6 +13,7 @@ public class PlayerJumpVFX : MonoBehaviour
     bool isEnabled = false;
     void Start()
     {
+
         JumpVFXAnimator = GetComponent<Animator>();
         PlayerController = Player.GetComponent<PlayerController>();
         Stats = Player.GetComponent<Stats>();
@@ -45,4 +46,5 @@ public class PlayerJumpVFX : MonoBehaviour
         Light.SetActive(false);
         JumpVFXAnimator.ResetTrigger("JumpVFX");
     }
+    
 }
