@@ -88,7 +88,7 @@ public class EnemyBase : MonoBehaviour
         RaycastHit2D ray = Physics2D.Raycast(transform.position, Player.transform.position - transform.position, rayDistance, playerMask);
         if (ray.collider != null)
         {
-            Debug.Log(ray.collider.name);
+            //Debug.Log(ray.collider.name);
             lineOfSight = ray.collider.CompareTag("Player");
             if (lineOfSight)
             {

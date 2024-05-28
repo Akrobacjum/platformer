@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Entity
+  - Soundmanager
   layers:
   - Default
   - TransparentFX
