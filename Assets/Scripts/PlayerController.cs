@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     PlayerAnimator PlayerAnimator;
+    PlayerAudioManager playerAudioManager;
     public Stats Stats;
     public UIManager Manager;
     public PlayerJumpVFX JumpVFX;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     bool isDead = false;
     void Start()
     {
+        playerAudioManager = GetComponent<PlayerAudioManager>();    
         PlayerAnimator = GetComponent<PlayerAnimator>();
         Stats = GetComponent<Stats>();
 
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
         if (Stats.health <= 0f)
         {
             Dead();
-            
+
         }
         else
         {
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
             Move();
             Jump();
         }
-        
+
 
 
 
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour
     }
     void RegenType()
     {
-        if(playerSpeed != 0f)
+        if (playerSpeed != 0f)
         {
             Stats.regen = Stats.staminaRegenWhileWalking;
         }
@@ -94,7 +96,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Run") && Stats.stamina >= 2) //RUNING
         {
             PlayerAnimator.Run();
-            
+
 
             if (Stats.staminaRun == false)
             {
@@ -111,9 +113,9 @@ public class PlayerController : MonoBehaviour
         }
         else //NOT RUNING
         {
-            
+
             PlayerAnimator.StopRun();
-            
+
             if (Stats.staminaRegen == false)
             {
                 StartCoroutine(Stats.StaminaRegen());
@@ -150,7 +152,7 @@ public class PlayerController : MonoBehaviour
                     jumpCount -= 1;
                 }
 
-                
+
             }
 
         }
@@ -195,11 +197,12 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    void Dead()
+    public void Dead()
     {
         if (isDead == false)
         {
             Debug.Log("You Died");
+            playerAudioManager.DeathSound();
             Manager.DeathScreen();
             isDead = true;
         }

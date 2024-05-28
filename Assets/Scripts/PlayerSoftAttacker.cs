@@ -8,9 +8,11 @@ public class PlayerSoftAttacker : MonoBehaviour
     private SpriteRenderer Renderer;
     Stats Stats;
 
+    Collider Collider;
+
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Light;
-
+    
     bool softAttackTrue = false;
     bool coroutineStarted = false;
     void Start()
@@ -18,9 +20,10 @@ public class PlayerSoftAttacker : MonoBehaviour
         Animator = GetComponent<Animator>();
         Renderer = GetComponent<SpriteRenderer>();
         Stats = Player.GetComponent<Stats>();
-
+        Collider = Player.GetComponent<Collider>(); 
         Renderer.enabled = false;
         Light.SetActive(false);
+       
     }
     void Update()
     {
@@ -39,7 +42,7 @@ public class PlayerSoftAttacker : MonoBehaviour
             }
             else
             {
-                Debug.Log("Attack");
+                //Debug.Log("Attack");
                 Renderer.enabled = true;
                 Light.SetActive(true);
                 Animator.ResetTrigger("FinalSwingDone");
@@ -65,5 +68,18 @@ public class PlayerSoftAttacker : MonoBehaviour
         softAttackTrue = false;
         Renderer.enabled = false;
         Light.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Stats entityStats = collision.gameObject.GetComponent<Stats>();
+            entityStats.health =- 5f;
+            entityStats.DoDamage(5);
+            Debug.Log("Attacked " + entityStats.name);
+
+            
+        }
     }
 }

@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Stats : MonoBehaviour
 {
@@ -34,15 +32,15 @@ public class Stats : MonoBehaviour
         StaminaBar.SetMaxValue((int)stamina);
         HealthBar.SetMaxValue((int)health);
         regen = staminaRegenWhileStanding;
-        
+
     }
     void Update()
     {
-        
+
         StatsCheck();
     }
 
-  
+
     void StatsCheck()
     {
         //Checks if statistics are mathematically correct and restrained every frame. Also checks if entity should be slain.
@@ -73,7 +71,7 @@ public class Stats : MonoBehaviour
     }
     public IEnumerator StaminaRun()
     {
-        
+
         StopCoroutine(StaminaRegen());
         staminaRun = true;
         stamina = stamina - staminaRunPerSec * Time.deltaTime;
@@ -84,24 +82,29 @@ public class Stats : MonoBehaviour
 
         staminaRun = false;
     }
+
+    public void DoDamage(int damageAmmount)
+    {
+        health = health - damageAmmount;
+    }
     void EntitySlay()
     {
         //Currently displays log. Made to kill entity in the future.
         Debug.Log("Entity Slain");
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //Checks tag of trigger's object.
-        string coliderTag = collision.gameObject.tag;
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    //Checks tag of trigger's object.
+    //    string coliderTag = collision.gameObject.tag;
 
-        switch (coliderTag)
-        {
-            case "Entity":
-                //Deals damage to player.
-                health--;
+    //    switch (coliderTag)
+    //    {
+    //        case "Entity":
+    //            //Deals damage to player.
+    //            health--;
 
-                Debug.Log("Entity Health: " + health);
-                break;
-        }
-    }
+    //            Debug.Log("Entity Health: " + health);
+    //            break;
+    //    }
+    //}
 }
