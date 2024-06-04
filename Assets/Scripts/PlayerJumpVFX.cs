@@ -4,8 +4,7 @@ public class PlayerJumpVFX : MonoBehaviour
 {
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Light;
-    PlayerController PlayerController;
-    Stats Stats;
+    
 
     public Animator JumpVFXAnimator;
     private SpriteRenderer Renderer;
@@ -15,8 +14,7 @@ public class PlayerJumpVFX : MonoBehaviour
     {
 
         JumpVFXAnimator = GetComponent<Animator>();
-        PlayerController = Player.GetComponent<PlayerController>();
-        Stats = Player.GetComponent<Stats>();
+        
         Renderer = GetComponent<SpriteRenderer>();
 
         Renderer.enabled = false;
