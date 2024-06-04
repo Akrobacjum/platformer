@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //To solve: GroundCheckBox() always returning false.
 public class PlayerController : MonoBehaviour
@@ -10,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public PlayerJumpVFX JumpVFX;
     public Rigidbody2D rigBody2D;
     private new Collider2D collider;
+    public PlayerSoftAttacker softAttacker;
+    public PlayerHardAttacker hardAttacker;
+
 
     public float dirX;
 
@@ -23,6 +27,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float jumpForce;
 
+    public bool side;
+
+    public bool isAttacking;
     public float speed;
     public bool right = true;
     public float jumpCount;
@@ -32,10 +39,10 @@ public class PlayerController : MonoBehaviour
     private float minJumpTime = 0.3f;
     private float currentJumpTime;
 
-    bool isDead = false;
+    public bool isDead = false;
     void Start()
     {
-        playerAudioManager = GetComponent<PlayerAudioManager>();    
+        playerAudioManager = GetComponent<PlayerAudioManager>();
         PlayerAnimator = GetComponent<PlayerAnimator>();
         Stats = GetComponent<Stats>();
 
@@ -59,9 +66,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerSpeed = Mathf.Abs((float)rigBody2D.velocity.x);
+            CheckSide();
             RegenType();
             Move();
             Jump();
+            Attack();
         }
 
 
@@ -172,10 +181,37 @@ public class PlayerController : MonoBehaviour
         float rigVX = rigBody2D.velocity.x;
         rigBody2D.velocity = new Vector2(rigVX, jumpForce);
     }
+    public void CheckSide()
+    {
+        if (dirX < 0 && right)
+        {
+            side = true;
+            PlayerAnimator.Flip(true);
+        }
+        if (dirX > 0 && !right)
+        {
+            side = false;
+            PlayerAnimator.Flip(false);
+        }
+    }
+    void Attack()
+    {
+        if (Input.GetButtonDown("Soft Attack") && Stats.stamina >= Stats.staminaSoftAttak)
+        {
+            softAttacker.SoftAttack();
+            isAttacking = true;
+        }
+        else if (Input.GetButtonDown("Hard Attack"))
+        {
+            hardAttacker.HardAttack();
+            isAttacking = true;
+        }
+
+    }
     public bool GroundCheckBox()
     {
 
-        Vector2 sizeVector = new Vector2(collider.bounds.size.x - 0.2f, collider.bounds.size.y - 1f);
+        Vector2 sizeVector = new Vector2(collider.bounds.size.x - 0.2f, collider.bounds.size.y - 0.8f);
         Vector2 originVector = new Vector2(collider.transform.position.x, collider.transform.position.y - 0.9f);
 
         return Physics2D.BoxCast(originVector, sizeVector, 0f, Vector2.down, 0.1f, groundMask);
