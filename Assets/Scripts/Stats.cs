@@ -11,7 +11,7 @@ public class Stats : MonoBehaviour
     public int staminaRegenWhileWalking;
     public int staminaRegenWhileStanding;
     public int regen;
-
+    
     public int staminaRunPerSec;
     public int staminaJump;
 
@@ -49,6 +49,7 @@ public class Stats : MonoBehaviour
 
         StaminaBar.SetCurrentValue((int)stamina);
         HealthBar.SetCurrentValue((int)health);
+
 
         if (health <= 0)
         {
