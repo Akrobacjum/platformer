@@ -70,7 +70,13 @@ public class UIManager : MonoBehaviour
         CancelSubmenu();
         Time.timeScale = 1;
         Menu.SetActive(false);
+
         MenuActive = false;
+        MapSubmenu.SetActive(false);
+        MapSubmenuActive = false;
+
+        CharacterSubmenu.SetActive(false);
+        CharacterSubmenuActive = false;
     }
     public void CharacterMenu()
     {
