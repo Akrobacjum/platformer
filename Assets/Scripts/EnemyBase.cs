@@ -16,6 +16,10 @@ public class EnemyBase : MonoBehaviour
     Stats stats;
     [SerializeField] private GameObject[] wayPoints;
     [SerializeField] GameObject Player;
+
+    
+
+    SpriteRenderer spriteRenderer;
     int currentPoint = 0;
     public float speed = 1.0f;
 
@@ -24,6 +28,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float rayDistance;
     [SerializeField] float searchLenght;
+
+    //float dirX = 0f; 
     private bool lineOfSight = false;
     private bool previousLineOfSight = false;
 
@@ -31,6 +37,7 @@ public class EnemyBase : MonoBehaviour
     {
         stats = GetComponent<Stats>();
         aiState = AiState.Patrol;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -52,6 +59,8 @@ public class EnemyBase : MonoBehaviour
 
                 break;
         }
+        
+       //GETTING VELOCITY HERE
        
     }
 
