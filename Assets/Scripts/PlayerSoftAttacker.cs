@@ -1,16 +1,15 @@
 using System.Collections;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PlayerSoftAttacker : AttackBase
 {
-  
+
 
     [SerializeField] GameObject Light;
 
     bool softAttackTrue = false;
     bool coroutineStarted = false;
-    
+
     bool keepPosition;
     void Start()
     {
@@ -36,7 +35,7 @@ public class PlayerSoftAttacker : AttackBase
     public void SoftAttack()
     {
         keepPosition = true;
-       
+
         Debug.Log(player.side);
         if (softAttackTrue)
         {
@@ -48,7 +47,7 @@ public class PlayerSoftAttacker : AttackBase
         else
         {
 
-            Debug.Log("Attack");
+            
             renderer.enabled = true;
             Light.SetActive(true);
             animator.ResetTrigger("FinalSwingDone");
@@ -71,7 +70,7 @@ public class PlayerSoftAttacker : AttackBase
     }
     public void SoftAttackKiller()
     {
-        
+
         animator.ResetTrigger("AttackingStart");
         softAttackTrue = false;
         renderer.enabled = false;
@@ -80,17 +79,4 @@ public class PlayerSoftAttacker : AttackBase
         player.isAttacking = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //if(collision.gameObject.tag == "Enemy")
-        //{
-        //    Stats entityStats = collision.gameObject.GetComponent<Stats>();
-        //    entityStats.health =- 5f;
-        //    entityStats.DoDamage(5);
-        //    Debug.Log("DUPA");
-        //    Debug.Log("Attacked " + entityStats.name);
-
-
-        //}
-    }
 }

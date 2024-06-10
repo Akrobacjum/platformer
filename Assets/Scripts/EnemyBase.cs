@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 enum AiState
@@ -17,7 +14,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private GameObject[] wayPoints;
     [SerializeField] GameObject Player;
 
-    
+    [SerializeField] Transform raySightPoint;
+
 
     SpriteRenderer spriteRenderer;
     int currentPoint = 0;
@@ -29,6 +27,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] float rayDistance;
     [SerializeField] float searchLenght;
 
+    Vector3 lastPosition;
     //float dirX = 0f; 
     private bool lineOfSight = false;
     private bool previousLineOfSight = false;
@@ -45,23 +44,39 @@ public class EnemyBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RayCast();
-        switch (aiState)
+        if (stats.health > 0)
         {
-            case AiState.Patrol:
-                MoveToPoints();
-                PointManager();
-                break;
-            case AiState.Chase:
-                ChasePlayer();
-                break;
-            case AiState.Attack:
+            Sight();
 
-                break;
+            switch (aiState)
+            {
+                case AiState.Patrol:
+                    MoveToPoints();
+                    PointManager();
+                    break;
+                case AiState.Chase:
+                    ChasePlayer();
+                    break;
+                case AiState.Attack:
+
+                    break;
+            }
+
+            //GETTING VELOCITY HERE
+            if (lastPosition.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            lastPosition = transform.position;
         }
-        
-       //GETTING VELOCITY HERE
-       
+        else
+        {
+            transform.position = lastPosition;
+        }
     }
 
 
@@ -86,7 +101,7 @@ public class EnemyBase : MonoBehaviour
     {
         Vector2 myPosition = transform.position;
         Vector2 pointPostion = wayPoints[currentPoint].transform.position;
-        
+
         Vector2 newPosition = new Vector2(pointPostion.x, myPosition.y);
 
         transform.position = Vector2.MoveTowards(myPosition, newPosition, speed * Time.deltaTime);
@@ -107,7 +122,7 @@ public class EnemyBase : MonoBehaviour
             else
             {
                 aiState = AiState.Patrol;
-                
+
             }
         }
         else
@@ -116,7 +131,34 @@ public class EnemyBase : MonoBehaviour
             lineOfSight = false;
         }
     }
-    
+
+    void Sight()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, raySightPoint.position - transform.position, rayDistance, playerMask);
+        if (hit.collider != null)
+        {
+
+            lineOfSight = hit.collider.CompareTag("Player");
+            if (lineOfSight)
+            {
+                aiState = AiState.Chase;
+                Debug.DrawRay(transform.position, raySightPoint.position - transform.position, Color.green);
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, raySightPoint.position - transform.position, Color.red);
+                aiState = AiState.Patrol;
+
+            }
+        }
+        else
+        {
+            aiState = AiState.Patrol;
+            lineOfSight = false;
+        }
+
+    }
+
     void ChasePlayer()
     {
         Vector2 myPosition = transform.position;
