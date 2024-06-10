@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Stats : MonoBehaviour
@@ -23,6 +24,7 @@ public class Stats : MonoBehaviour
 
     public bool staminaRegen;
     public bool staminaRun;
+    bool isDead = false;
     void Start()
     {
         //Sets player statistics to maximum at scene's starts.
@@ -53,7 +55,11 @@ public class Stats : MonoBehaviour
 
         if (health <= 0)
         {
-            EntitySlay();
+            
+            if(tag == "Entity")
+            {
+                EntitySlay();
+            }
         }
     }
     public IEnumerator StaminaRegen()
@@ -90,8 +96,14 @@ public class Stats : MonoBehaviour
     }
     void EntitySlay()
     {
-        //Currently displays log. Made to kill entity in the future.
-        Debug.Log("Entity Slain");
+        if (isDead== false)
+        {
+            Debug.Log("Entity Slain");
+            EntityAnim entityAnim = gameObject.GetComponent<EntityAnim>();
+            entityAnim.Death();
+            isDead = true;
+        }
+        
     }
     //private void OnTriggerEnter2D(Collider2D collision)
     //{

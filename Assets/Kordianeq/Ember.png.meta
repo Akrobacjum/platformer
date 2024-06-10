@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d2d0d1a05528d2a4a9e703ec0f9a6420
+guid: ead6b688e00cf8741ab13e81dce112d6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 114
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,85 +97,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ElfWalk_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 228
-        width: 228
-        height: 228
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4594862a7dd9a949a508f68df85d12e
-      internalID: -536213428
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ElfWalk_1
-      rect:
-        serializedVersion: 2
-        x: 228
-        y: 228
-        width: 228
-        height: 228
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c0716df546261b34baba91b04e13fa7c
-      internalID: 1980094195
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ElfWalk_2
+      name: Ember_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 228
-        height: 228
+        width: 114
+        height: 114
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b9cf508bf9181e42b97d2552738fcd5
-      internalID: 983911967
+      spriteID: 479d6cd3d94f0024aa12c3ea943bed6a
+      internalID: -1764661750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElfWalk_3
+      name: Ember_1
       rect:
         serializedVersion: 2
-        x: 228
+        x: 114
         y: 0
-        width: 228
-        height: 228
+        width: 114
+        height: 114
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98747d46d5cdf7346a561020cb8d681a
-      internalID: -1454267030
+      spriteID: 0471e5b30584a5947a8d3c18eea057ed
+      internalID: -64875419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ember_2
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 0
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f94f7af0fb21fe46ba55be5a733af43
+      internalID: -977178738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ember_3
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 0
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9d7b8f373c4e1b4fb66a039ed0c7e59
+      internalID: -1881961346
       vertices: []
       indices: 
       edges: []
@@ -189,14 +189,12 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 72445a2c4674570478100fbf72849eda, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
     nameFileIdTable:
-      ElfWalk_0: -536213428
-      ElfWalk_1: 1980094195
-      ElfWalk_2: 983911967
-      ElfWalk_3: -1454267030
+      Ember_0: -1764661750
+      Ember_1: -64875419
+      Ember_2: -977178738
+      Ember_3: -1881961346
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
