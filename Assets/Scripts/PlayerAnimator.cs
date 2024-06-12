@@ -75,4 +75,8 @@ public class PlayerAnimator : MonoBehaviour
             animator.ResetTrigger("Stop");
         }
     }
+    public void Interaction()
+    {
+        animator.SetTrigger("Interact");
+    }
 }

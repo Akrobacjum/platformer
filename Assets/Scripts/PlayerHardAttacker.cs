@@ -8,12 +8,17 @@ public class PlayerHardAttacker : AttackBase
    
     [SerializeField] GameObject Light;
 
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
+
     bool hardAttackTrue = false;
     bool coroutineStarted = false;
     void Start()
     {
         renderer.enabled = false;
         Light.SetActive(false);
+
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     
     public void HardAttack()
@@ -27,6 +32,7 @@ public class PlayerHardAttacker : AttackBase
             }
             else
             {
+                AudioScript.PlayHardAttack("HardAttack");
                 Debug.Log("Attack");
                 renderer.enabled = true;
                 Light.SetActive(true);
@@ -43,7 +49,9 @@ public class PlayerHardAttacker : AttackBase
         coroutineStarted = true;
         animator.SetBool("Attacking", true);
         Stats.stamina = Stats.stamina - Stats.staminaHardAttak;
+        AudioScript.PlayHardAttack("HardAttack");
         yield return new WaitForSeconds(3);
+        AudioScript.PlayHardAttack("HardAttack");
         animator.SetBool("Attacking", false);
         coroutineStarted = false;
     }

@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 public class PlayerController : MonoBehaviour
 {
     PlayerAnimator PlayerAnimator;
-    PlayerAudioManager playerAudioManager;
     public Stats Stats;
     public UIManager Manager;
     public PlayerJumpVFX JumpVFX;
@@ -13,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private new Collider2D collider;
     public PlayerSoftAttacker softAttacker;
     public PlayerHardAttacker hardAttacker;
-
+    public Firecamp Firecamp;
 
     public float dirX;
 
@@ -42,9 +41,8 @@ public class PlayerController : MonoBehaviour
     public bool isDead = false;
     void Start()
     {
-        playerAudioManager = GetComponent<PlayerAudioManager>();
-        PlayerAnimator = GetComponent<PlayerAnimator>();
         Stats = GetComponent<Stats>();
+        PlayerAnimator = GetComponent<PlayerAnimator>();
 
         rigBody2D = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
@@ -238,7 +236,6 @@ public class PlayerController : MonoBehaviour
         if (isDead == false)
         {
             Debug.Log("You Died");
-            playerAudioManager.DeathSound();
             Manager.DeathScreen();
             isDead = true;
         }
