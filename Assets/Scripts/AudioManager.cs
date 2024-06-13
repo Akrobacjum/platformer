@@ -12,6 +12,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource playerSource, hardAttackSource, softAttackSource, firecampSource, musicSource, ambienceSource, enemySource;
 
     int DamageCounter = 1;
+    int SoftAttackCounter = 1;
+    int HardAttackCounter;
+    int SoftHitCounter = 1;
+    int HardHitCounter = 1;
 
     private void Start()
     {
@@ -38,6 +42,7 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayerDamage()
     {
+        playerSource.Play();
         if (DamageCounter == 7)
         {
             DamageCounter = 1;
@@ -68,7 +73,7 @@ public class AudioManager : MonoBehaviour
             DamageCounter++;
             PlayPlayer("Damage2");
         }
-        else if (DamageCounter == 1)
+        else
         {
             DamageCounter++;
             PlayPlayer("Damage1");
@@ -76,23 +81,136 @@ public class AudioManager : MonoBehaviour
     }
     public void SoftAttack()
     {
-        PlaySoftAttack("SoftAttack");
+        if (SoftAttackCounter == 6)
+        {
+            SoftAttackCounter = 1;
+            PlaySoftAttack("SoftAttack6");
+        }
+        else if (SoftAttackCounter == 5)
+        {
+            SoftAttackCounter++;
+            PlaySoftAttack("SoftAttack5");
+        }
+        else if (SoftAttackCounter == 4)
+        {
+            SoftAttackCounter++;
+            PlaySoftAttack("SoftAttack4");
+        }
+        else if (SoftAttackCounter == 3)
+        {
+            SoftAttackCounter++;
+            PlaySoftAttack("SoftAttack3");
+        }
+        else if (SoftAttackCounter == 2)
+        {
+            SoftAttackCounter++;
+            PlaySoftAttack("SoftAttack2");
+        }
+        else
+        {
+            SoftAttackCounter++;
+            PlaySoftAttack("SoftAttack1");
+        }
     }
     public void HardAttack()
     {
-        PlayHardAttack("HardAttack");
+        if (HardAttackCounter == 3)
+        {
+            HardAttackCounter = 1;
+            PlayHardAttack("HardAttack3");
+        }
+        else if (HardAttackCounter == 2)
+        {
+            HardAttackCounter++;
+            PlayHardAttack("HardAttack2");
+        }
+        else
+        {
+            HardAttackCounter++;
+            PlayHardAttack("HardAttack1");
+        }
     }
-    public void FirecampUnlock()
+    public void SoftHit()
     {
-        PlayMusic("FirecampUnlock");
+        if (SoftHitCounter == 6)
+        {
+            SoftHitCounter = 1;
+            PlayEnemy("SoftHit6");
+        }
+        else if (SoftHitCounter == 5)
+        {
+            SoftHitCounter++;
+            PlayEnemy("SoftHit5");
+        }
+        else if (SoftHitCounter == 4)
+        {
+            SoftHitCounter++;
+            PlayEnemy("SoftHit4");
+        }
+        else if (SoftHitCounter == 3)
+        {
+            SoftHitCounter++;
+            PlayEnemy("SoftHit3");
+        }
+        else if (SoftHitCounter == 2)
+        {
+            SoftHitCounter++;
+            PlayEnemy("SoftHit2");
+        }
+        else
+        {
+            SoftHitCounter++;
+            PlayEnemy("SoftHit1");
+        }
+    }
+
+    public void HardHit()
+    {
+        if (HardHitCounter == 3)
+        {
+            HardHitCounter = 1;
+            PlayEnemy("HardHit3");
+        }
+        else if (HardHitCounter == 2)
+        {
+            HardHitCounter++;
+            PlayEnemy("HardHit2");
+        }
+        else
+        {
+            HardHitCounter++;
+            PlayEnemy("HardHit1");
+        }
     }
     public void PlayerDeath()
     {
+        playerSource.Play();
         PlayPlayer("Death");
     }
-    public void Hit()
+    public void PlayerJumpSFX()
     {
-        PlayEnemy("Hit");
+        playerSource.Play();
+        PlayPlayer("PlayerJumpSFX");
+    }
+    public void PlayerWalk()
+    {
+        Debug.Log("S");
+        playerSource.Play();
+        PlayPlayer("Walk");
+    }
+    public void PlayerRun()
+    {
+        playerSource.Play();
+        PlayPlayer("Run");
+    }
+    public void PlayerFall()
+    {
+        playerSource.Play();
+        PlayPlayer("Fall");
+    }
+    public void PlayerStop()
+    {
+        playerSource.Stop();
     }
     public void PlayPlayer(string name)
     {

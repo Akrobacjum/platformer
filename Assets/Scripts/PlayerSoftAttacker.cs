@@ -46,7 +46,7 @@ public class PlayerSoftAttacker : AttackBase
         }
         else
         {
-            AudioScript.PlaySoftAttack("SoftAttack");
+            AudioScript.SoftAttack();
             renderer.enabled = true;
             Light.SetActive(true);
             animator.ResetTrigger("FinalSwingDone");
@@ -62,8 +62,8 @@ public class PlayerSoftAttacker : AttackBase
         coroutineStarted = true;
         animator.SetBool("Attacking", true);
         Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
-        AudioScript.PlaySoftAttack("SoftAttack");
-        yield return new WaitForSeconds(0.5f);
+        AudioScript.SoftAttack();
+        yield return new WaitForSeconds(1f);
         animator.SetBool("Attacking", false);
         coroutineStarted = false;
     }

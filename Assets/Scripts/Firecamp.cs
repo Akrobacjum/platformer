@@ -93,12 +93,12 @@ public class Firecamp : MonoBehaviour
     private void SoundCheck()
     {
         var hit = Physics2D.Raycast(transform.position, Player.transform.position);
-        AudioScript.firecampSource.volume = 1 - hit.distance * 0.33f;
-        AudioScript.musicSource.volume = 1 - hit.distance * 0.33f;
+        AudioScript.firecampSource.volume = 0.15f - hit.distance * 0.15f;
+        AudioScript.musicSource.volume = 0.37f - hit.distance * 0.10f;
         //Debug.Log(hit.distance);
         isHit = hit.collider;
         Debug.DrawRay(transform.position, Player.transform.position - transform.position, Color.green);
-        if (hit.distance > 3 && isPlaying == true)
+        if (hit.distance > 10 && isPlaying == true)
         {
             AudioScript.firecampSource.Stop();
             AudioScript.musicSource.Stop();

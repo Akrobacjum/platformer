@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     public PlayerHardAttacker hardAttacker;
     public Firecamp Firecamp;
 
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
+
     public float dirX;
 
     public LayerMask groundMask;
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private float currentJumpTime;
 
     public bool isDead = false;
+    public bool soundPlayed = false;
     void Start()
     {
         Stats = GetComponent<Stats>();
@@ -53,6 +57,8 @@ public class PlayerController : MonoBehaviour
         rigBody2D.MovePosition(Spawn.position);
 
         Stats.staminaRegen = false;
+
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     void Update()
     {
@@ -99,12 +105,9 @@ public class PlayerController : MonoBehaviour
 
         dirX = Input.GetAxisRaw("Horizontal");
 
-
         if (Input.GetButton("Run") && Stats.stamina >= 2) //RUNING
         {
             PlayerAnimator.Run();
-
-
             if (Stats.staminaRun == false)
             {
                 StartCoroutine(Stats.StaminaRun());
@@ -117,6 +120,11 @@ public class PlayerController : MonoBehaviour
             //Running speed
             float rigVY = rigBody2D.velocity.y;
             rigBody2D.velocity = new Vector2(dirX * speed, rigVY);
+            if (speed > 3 && soundPlayed == false)
+            {
+                soundPlayed = true;
+                AudioScript.PlayerRun();
+            }
         }
         else //NOT RUNING
         {
@@ -131,7 +139,27 @@ public class PlayerController : MonoBehaviour
             //Calculates walking speed.
             float rigVY = rigBody2D.velocity.y;
             rigBody2D.velocity = new Vector2(dirX * walkSpeed, rigVY);
-
+            if (dirX == 1 || dirX == -1)
+            {
+                if (soundPlayed == false)
+                {
+                    soundPlayed = true;
+                    AudioScript.PlayerWalk();
+                }
+                else if (speed > 3)
+                {
+                    if (soundPlayed == false)
+                    {
+                        soundPlayed = true;
+                        AudioScript.PlayerRun();
+                    }
+                }
+            }
+            else if (dirX == 0)
+            {
+                soundPlayed = false;
+                AudioScript.PlayerStop();
+            }
         }
     }
     void Jump()
