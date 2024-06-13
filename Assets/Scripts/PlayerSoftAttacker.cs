@@ -1,85 +1,81 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSoftAttacker : MonoBehaviour
+public class PlayerSoftAttacker : AttackBase
 {
-    public Animator Animator;
-    private SpriteRenderer Renderer;
-    Stats Stats;
-
-    Collider Collider;
-
-    [SerializeField] GameObject Player;
     [SerializeField] GameObject Light;
-    
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
+
     bool softAttackTrue = false;
     bool coroutineStarted = false;
+
+    bool keepPosition;
     void Start()
     {
-        Animator = GetComponent<Animator>();
-        Renderer = GetComponent<SpriteRenderer>();
-        Stats = Player.GetComponent<Stats>();
-        Collider = Player.GetComponent<Collider>(); 
-        Renderer.enabled = false;
+        renderer.enabled = false;
         Light.SetActive(false);
-       
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
-    void Update()
-    {
-        SoftAttack();
-    }
+    //public override void Update()
+    //{
+
+    //    base.Update();
+    //    //if (keepPosition == false)
+    //    //{
+    //    //    transform.position = attackSlot.position;
+    //    //    lastPostion = transform;
+    //    //}
+    //    //else
+    //    //{
+    //    //    transform.position = lastPostion.position;  
+    //    //}
+
+    //}
     public void SoftAttack()
     {
-        if (Input.GetButtonDown("Soft Attack") && Stats.stamina >= Stats.staminaSoftAttak)
+        keepPosition = true;
+
+        Debug.Log(player.side);
+        if (softAttackTrue)
         {
-            if (softAttackTrue == true)
+            if (coroutineStarted == false)
             {
-                if (coroutineStarted == false)
-                {
-                    StartCoroutine(NextSwing());
-                }
-            }
-            else
-            {
-                //Debug.Log("Attack");
-                Renderer.enabled = true;
-                Light.SetActive(true);
-                Animator.ResetTrigger("FinalSwingDone");
-                Animator.SetTrigger("AttackingStart");
-                Animator.SetBool("Attacking", false);
-                softAttackTrue = true;
-                Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
+                StartCoroutine(NextSwing());
             }
         }
+        else
+        {
+            AudioScript.SoftAttack();
+            renderer.enabled = true;
+            Light.SetActive(true);
+            animator.ResetTrigger("FinalSwingDone");
+            animator.SetTrigger("AttackingStart");
+            animator.SetBool("Attacking", false);
+            softAttackTrue = true;
+            Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
+        }
+
     }
     private IEnumerator NextSwing()
     {
         coroutineStarted = true;
-        Animator.SetBool("Attacking", true);
+        animator.SetBool("Attacking", true);
         Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
-        yield return new WaitForSeconds(0.75f);
-        Animator.SetBool("Attacking", false);
+        AudioScript.SoftAttack();
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("Attacking", false);
         coroutineStarted = false;
     }
     public void SoftAttackKiller()
     {
-        Animator.ResetTrigger("AttackingStart");
+
+        animator.ResetTrigger("AttackingStart");
         softAttackTrue = false;
-        Renderer.enabled = false;
+        renderer.enabled = false;
         Light.SetActive(false);
+        keepPosition = false;
+        player.isAttacking = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            Stats entityStats = collision.gameObject.GetComponent<Stats>();
-            entityStats.health =- 5f;
-            entityStats.DoDamage(5);
-            Debug.Log("Attacked " + entityStats.name);
-
-            
-        }
-    }
 }

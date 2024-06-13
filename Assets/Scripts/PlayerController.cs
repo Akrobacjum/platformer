@@ -1,15 +1,21 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //To solve: GroundCheckBox() always returning false.
 public class PlayerController : MonoBehaviour
 {
     PlayerAnimator PlayerAnimator;
-    PlayerAudioManager playerAudioManager;
     public Stats Stats;
     public UIManager Manager;
     public PlayerJumpVFX JumpVFX;
     public Rigidbody2D rigBody2D;
     private new Collider2D collider;
+    public PlayerSoftAttacker softAttacker;
+    public PlayerHardAttacker hardAttacker;
+    public Firecamp Firecamp;
+
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
 
     public float dirX;
 
@@ -23,6 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float jumpForce;
 
+    public bool side;
+
+    public bool isAttacking;
     public float speed;
     public bool right = true;
     public float jumpCount;
@@ -32,12 +41,12 @@ public class PlayerController : MonoBehaviour
     private float minJumpTime = 0.3f;
     private float currentJumpTime;
 
-    bool isDead = false;
+    public bool isDead = false;
+    public bool soundPlayed = false;
     void Start()
     {
-        playerAudioManager = GetComponent<PlayerAudioManager>();    
-        PlayerAnimator = GetComponent<PlayerAnimator>();
         Stats = GetComponent<Stats>();
+        PlayerAnimator = GetComponent<PlayerAnimator>();
 
         rigBody2D = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
@@ -48,6 +57,8 @@ public class PlayerController : MonoBehaviour
         rigBody2D.MovePosition(Spawn.position);
 
         Stats.staminaRegen = false;
+
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     void Update()
     {
@@ -59,9 +70,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerSpeed = Mathf.Abs((float)rigBody2D.velocity.x);
+            CheckSide();
             RegenType();
             Move();
             Jump();
+            Attack();
         }
 
 
@@ -92,12 +105,9 @@ public class PlayerController : MonoBehaviour
 
         dirX = Input.GetAxisRaw("Horizontal");
 
-
         if (Input.GetButton("Run") && Stats.stamina >= 2) //RUNING
         {
             PlayerAnimator.Run();
-
-
             if (Stats.staminaRun == false)
             {
                 StartCoroutine(Stats.StaminaRun());
@@ -110,6 +120,11 @@ public class PlayerController : MonoBehaviour
             //Running speed
             float rigVY = rigBody2D.velocity.y;
             rigBody2D.velocity = new Vector2(dirX * speed, rigVY);
+            if (speed > 3 && soundPlayed == false)
+            {
+                soundPlayed = true;
+                AudioScript.PlayerRun();
+            }
         }
         else //NOT RUNING
         {
@@ -124,7 +139,27 @@ public class PlayerController : MonoBehaviour
             //Calculates walking speed.
             float rigVY = rigBody2D.velocity.y;
             rigBody2D.velocity = new Vector2(dirX * walkSpeed, rigVY);
-
+            if (dirX == 1 || dirX == -1)
+            {
+                if (soundPlayed == false)
+                {
+                    soundPlayed = true;
+                    AudioScript.PlayerWalk();
+                }
+                else if (speed > 3)
+                {
+                    if (soundPlayed == false)
+                    {
+                        soundPlayed = true;
+                        AudioScript.PlayerRun();
+                    }
+                }
+            }
+            else if (dirX == 0)
+            {
+                soundPlayed = false;
+                AudioScript.PlayerStop();
+            }
         }
     }
     void Jump()
@@ -172,10 +207,37 @@ public class PlayerController : MonoBehaviour
         float rigVX = rigBody2D.velocity.x;
         rigBody2D.velocity = new Vector2(rigVX, jumpForce);
     }
+    public void CheckSide()
+    {
+        if (dirX < 0 && right)
+        {
+            side = true;
+            PlayerAnimator.Flip(true);
+        }
+        if (dirX > 0 && !right)
+        {
+            side = false;
+            PlayerAnimator.Flip(false);
+        }
+    }
+    void Attack()
+    {
+        if (Input.GetButtonDown("Soft Attack") && Stats.stamina >= Stats.staminaSoftAttak)
+        {
+            softAttacker.SoftAttack();
+            isAttacking = true;
+        }
+        else if (Input.GetButtonDown("Hard Attack"))
+        {
+            hardAttacker.HardAttack();
+            isAttacking = true;
+        }
+
+    }
     public bool GroundCheckBox()
     {
 
-        Vector2 sizeVector = new Vector2(collider.bounds.size.x - 0.2f, collider.bounds.size.y - 1f);
+        Vector2 sizeVector = new Vector2(collider.bounds.size.x - 0.2f, collider.bounds.size.y - 0.8f);
         Vector2 originVector = new Vector2(collider.transform.position.x, collider.transform.position.y - 0.9f);
 
         return Physics2D.BoxCast(originVector, sizeVector, 0f, Vector2.down, 0.1f, groundMask);
@@ -202,7 +264,6 @@ public class PlayerController : MonoBehaviour
         if (isDead == false)
         {
             Debug.Log("You Died");
-            playerAudioManager.DeathSound();
             Manager.DeathScreen();
             isDead = true;
         }

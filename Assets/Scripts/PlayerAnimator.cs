@@ -24,20 +24,20 @@ public class PlayerAnimator : MonoBehaviour
         MoveAnimator();
         
         StopAnimator();
-        Flip();
+        
         previousInput = input;
 
     }
-    void Flip()
+    public void Flip(bool side /* true == flip*/)
     {
         //Flips player sprites according to movement direction.
-        if (PlayerController.dirX < 0 && PlayerController.right)
+        if (side)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
             PlayerController.right = false;
         }
-        if (PlayerController.dirX > 0 && !PlayerController.right)
-        {
+        else 
+        { 
             transform.eulerAngles = new Vector3(0, 0, 0);
             PlayerController.right = true;
         }
@@ -74,5 +74,9 @@ public class PlayerAnimator : MonoBehaviour
         {
             animator.ResetTrigger("Stop");
         }
+    }
+    public void Interaction()
+    {
+        animator.SetTrigger("Interact");
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Entity
   - Soundmanager
+  - Firecamp
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Player
   - Entity
   - Platform
-  - 
+  - Firecamp
   - 
   - 
   - 
@@ -43,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particles
+    uniqueID: 4183137395
     locked: 0
