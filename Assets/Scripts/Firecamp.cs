@@ -10,7 +10,7 @@ public class Firecamp : MonoBehaviour
 {
     [SerializeField] GameObject FireCampMapButton;
     [SerializeField] GameObject Spawnpoint;
-    [SerializeField] GameObject Player;
+    GameObject Player;
     [SerializeField] GameObject UIManager;
     [SerializeField] ParticleSystem Effect;
 
@@ -25,6 +25,7 @@ public class Firecamp : MonoBehaviour
 
     void Start()
     {
+        Player = GameObject.Find("Player");
         Effect.Pause();
         Effect.Clear();
         UIManagerScript = UIManager.GetComponent<UIManager>();
