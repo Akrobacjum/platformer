@@ -23,7 +23,7 @@ public class AttackBase : MonoBehaviour
     {
 
 
-        Debug.Log(player.isAttacking);
+        
         if (player.isAttacking)
         {
             transform.position = lastPosition.position;
@@ -52,5 +52,21 @@ public class AttackBase : MonoBehaviour
         Debug.Log("Attack");
     }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+
+
+        
+        if (collision.gameObject.tag == "Entity")
+        {
+           
+            Stats entityStats = collision.gameObject.GetComponent<Stats>();
+            entityStats.DoDamage(5);
+            
+            Debug.Log("Attacked " + entityStats.name);
+
+
+        }
+    }
 
 }
