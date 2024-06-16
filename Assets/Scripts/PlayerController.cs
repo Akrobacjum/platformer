@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 public class PlayerController : MonoBehaviour
 {
     PlayerAnimator PlayerAnimator;
-    PlayerAudioManager playerAudioManager;
     public Stats Stats;
     public UIManager Manager;
     public PlayerJumpVFX JumpVFX;
@@ -13,7 +12,10 @@ public class PlayerController : MonoBehaviour
     private new Collider2D collider;
     public PlayerSoftAttacker softAttacker;
     public PlayerHardAttacker hardAttacker;
+    public Firecamp Firecamp;
 
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
 
     public float dirX;
 
@@ -40,11 +42,11 @@ public class PlayerController : MonoBehaviour
     private float currentJumpTime;
 
     public bool isDead = false;
+    public bool soundPlayed = false;
     void Start()
     {
-        playerAudioManager = GetComponent<PlayerAudioManager>();
-        PlayerAnimator = GetComponent<PlayerAnimator>();
         Stats = GetComponent<Stats>();
+        PlayerAnimator = GetComponent<PlayerAnimator>();
 
         rigBody2D = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
@@ -55,6 +57,8 @@ public class PlayerController : MonoBehaviour
         rigBody2D.MovePosition(Spawn.position);
 
         Stats.staminaRegen = false;
+
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     void Update()
     {
@@ -101,12 +105,9 @@ public class PlayerController : MonoBehaviour
 
         dirX = Input.GetAxisRaw("Horizontal");
 
-
         if (Input.GetButton("Run") && Stats.stamina >= 2) //RUNING
         {
             PlayerAnimator.Run();
-
-
             if (Stats.staminaRun == false)
             {
                 StartCoroutine(Stats.StaminaRun());
@@ -119,6 +120,11 @@ public class PlayerController : MonoBehaviour
             //Running speed
             float rigVY = rigBody2D.velocity.y;
             rigBody2D.velocity = new Vector2(dirX * speed, rigVY);
+            if (speed > 3 && soundPlayed == false)
+            {
+                soundPlayed = true;
+                AudioScript.PlayerRun();
+            }
         }
         else //NOT RUNING
         {
@@ -133,7 +139,27 @@ public class PlayerController : MonoBehaviour
             //Calculates walking speed.
             float rigVY = rigBody2D.velocity.y;
             rigBody2D.velocity = new Vector2(dirX * walkSpeed, rigVY);
-
+            if (dirX == 1 || dirX == -1)
+            {
+                if (soundPlayed == false)
+                {
+                    soundPlayed = true;
+                    AudioScript.PlayerWalk();
+                }
+                else if (speed > 3)
+                {
+                    if (soundPlayed == false)
+                    {
+                        soundPlayed = true;
+                        AudioScript.PlayerRun();
+                    }
+                }
+            }
+            else if (dirX == 0)
+            {
+                soundPlayed = false;
+                AudioScript.PlayerStop();
+            }
         }
     }
     void Jump()
@@ -238,7 +264,6 @@ public class PlayerController : MonoBehaviour
         if (isDead == false)
         {
             Debug.Log("You Died");
-            playerAudioManager.DeathSound();
             Manager.DeathScreen();
             isDead = true;
         }

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PlayerSoftAttacker : AttackBase
 {
-
-
     [SerializeField] GameObject Light;
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
 
     bool softAttackTrue = false;
     bool coroutineStarted = false;
@@ -15,7 +15,7 @@ public class PlayerSoftAttacker : AttackBase
     {
         renderer.enabled = false;
         Light.SetActive(false);
-
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     //public override void Update()
     //{
@@ -46,8 +46,7 @@ public class PlayerSoftAttacker : AttackBase
         }
         else
         {
-
-            
+            AudioScript.SoftAttack();
             renderer.enabled = true;
             Light.SetActive(true);
             animator.ResetTrigger("FinalSwingDone");
@@ -63,8 +62,8 @@ public class PlayerSoftAttacker : AttackBase
         coroutineStarted = true;
         animator.SetBool("Attacking", true);
         Stats.stamina = Stats.stamina - Stats.staminaSoftAttak;
-        yield return new WaitForSeconds(0.75f);
-
+        AudioScript.SoftAttack();
+        yield return new WaitForSeconds(1f);
         animator.SetBool("Attacking", false);
         coroutineStarted = false;
     }

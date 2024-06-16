@@ -14,6 +14,11 @@ public class Firecamp : MonoBehaviour
     [SerializeField] GameObject UIManager;
     [SerializeField] ParticleSystem Effect;
 
+    PlayerAnimator PlayerAnimator;
+
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
+
     //[SerializeField] TextMeshPro fireText;
 
     UIManager UIManagerScript;
@@ -21,7 +26,13 @@ public class Firecamp : MonoBehaviour
     Animator Animator;
 
     public bool isUnlocked = false;
+    public bool isInteracted = false;
     bool PlayerTrigger;
+
+    //float dirX = 0f; 
+
+    bool isHit;
+    bool isPlaying;
 
     void Start()
     {
@@ -31,8 +42,12 @@ public class Firecamp : MonoBehaviour
         Stats = Player.GetComponent<Stats>();
         Animator = GetComponent<Animator>();
 
+        AudioScript = AudioManager.GetComponent<AudioManager>();
+        PlayerAnimator = Player.GetComponent<PlayerAnimator>();
+
         //Unlocking firecamp should be loaded from player prefs, turn on before creating a build.
         //isUnlocked = PlayerPrefs.GetInt("isUnlocked") == 1 ? true : false;
+        isHit = false;
     }
     void Update()
     {
@@ -40,6 +55,7 @@ public class Firecamp : MonoBehaviour
         //Checks if firecamp is unlocked and controls if player can teleport to it from map menu.
         if (isUnlocked)
         {
+            SoundCheck();
             FireCampMapButton.SetActive(true);
             //fireText.SetText("Active");
         }
@@ -66,14 +82,48 @@ public class Firecamp : MonoBehaviour
                 Debug.Log("Campfire: Interaction");
 
             }
-            else if (Input.GetButtonDown("Interact"))
+            else if (Input.GetButtonDown("Interact") && isInteracted == false)
             {
-                isUnlocked = true;
-                Animator.SetBool("isUnlocked", true);
-                Effect.Play();
-                Debug.Log("Campfire: " + isUnlocked);
+                isInteracted = true;
+                PlayerAnimator.Interaction();
+                Invoke("FirecampUnlock", 3.0f);
             }
         }
+    }
+    private void SoundCheck()
+    {
+        var hit = Physics2D.Raycast(transform.position, Player.transform.position);
+        AudioScript.firecampSource.volume = 0.15f - hit.distance * 0.15f;
+        AudioScript.musicSource.volume = 0.37f - hit.distance * 0.10f;
+        //Debug.Log(hit.distance);
+        isHit = hit.collider;
+        Debug.DrawRay(transform.position, Player.transform.position - transform.position, Color.green);
+        if (hit.distance > 10 && isPlaying == true)
+        {
+            AudioScript.firecampSource.Stop();
+            AudioScript.musicSource.Stop();
+            isPlaying = false;
+        }
+        else if (isPlaying == false)
+        {
+            AudioScript.firecampSource.Play();
+            AudioScript.musicSource.Play();
+            isPlaying = true;
+        }
+    }
+    void FirecampUnlock()
+    {
+        AudioScript.PlayMusic("FirecampUnlock");
+        Invoke("PlayOST", 3.5f);
+        AudioScript.PlayFirecamp("Firecamp");
+        isUnlocked = true;
+        Animator.SetBool("isUnlocked", true);
+        Effect.Play();
+        Debug.Log("Campfire: " + isUnlocked);
+    }
+    void PlayOST()
+    {
+        AudioScript.PlayMusic("Peace");
     }
     private void OnApplicationQuit()
     {
