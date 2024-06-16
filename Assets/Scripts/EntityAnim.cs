@@ -5,10 +5,12 @@ using UnityEngine;
 public class EntityAnim : MonoBehaviour
 {
     Animator entityAnimator;
+    EnemyBase enemyBase;
     // Start is called before the first frame update
     void Start()
     {
         entityAnimator = GetComponent<Animator>();
+        enemyBase = GetComponent<EnemyBase>();
     }
 
     // Update is called once per frame
@@ -16,7 +18,16 @@ public class EntityAnim : MonoBehaviour
     {
         
     }
+    public void Swing()
+    {
+        entityAnimator.SetTrigger("Swing");
+        
 
+    }
+    public void Attack()
+    {
+        entityAnimator.SetTrigger("SwingStart");
+    }
     public void Death()
     {
         Debug.Log("Death");
@@ -24,8 +35,13 @@ public class EntityAnim : MonoBehaviour
         
     }
 
+    public void AttackReset()
+    {
+        enemyBase.attacked = false; 
+    }
     public void DestroyObject()
     {
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
+        
     }
 }
