@@ -504,7 +504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 379, y: 603}
+  m_AnchoredPosition: {x: 633, y: 603}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &122612726
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Elf Rush
+  m_text: Booba
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6742f1dbbb50a1247a474fafa64b5253, type: 2}
   m_sharedMaterial: {fileID: -5713731816194071821, guid: 6742f1dbbb50a1247a474fafa64b5253, type: 2}
@@ -2177,7 +2177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 371, y: 611}
+  m_AnchoredPosition: {x: 625, y: 611}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1404423482
@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Elf Rush
+  m_text: Booba
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6742f1dbbb50a1247a474fafa64b5253, type: 2}
   m_sharedMaterial: {fileID: -5713731816194071821, guid: 6742f1dbbb50a1247a474fafa64b5253, type: 2}
