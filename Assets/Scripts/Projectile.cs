@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     }
     private void Awake()
     {
-        Destroy(gameObject, 2);
+        Destroy(gameObject, 3);
     }
 
     // Update is called once per frame

@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     public Sound[] musicSound, sfxSound;
-    public AudioSource playerSource, hardAttackSource, softAttackSource, firecampSource, musicSource, ambienceSource, enemySource;
+    public AudioSource playerSource, hardAttackSource, softAttackSource, firecampSource, musicSource, ambienceSource, enemySource, playerDamageSource;
 
     int DamageCounter = 1;
     int SoftAttackCounter = 1;
@@ -42,41 +42,41 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayerDamage()
     {
-        playerSource.Play();
+        Debug.Log("Seggs");
         if (DamageCounter == 7)
         {
             DamageCounter = 1;
-            PlayPlayer("Damage7");
+            PlayPlayerDamage("Damage7");
         }
         else if (DamageCounter == 6)
         {
             DamageCounter++;
-            PlayPlayer("Damage6");
+            PlayPlayerDamage("Damage6");
         }
         else if (DamageCounter == 5)
         {
             DamageCounter++;
-            PlayPlayer("Damage5");
+            PlayPlayerDamage("Damage5");
         }
         else if (DamageCounter == 4)
         {
             DamageCounter++;
-            PlayPlayer("Damage4");
+            PlayPlayerDamage("Damage4");
         }
         else if (DamageCounter == 3)
         {
             DamageCounter++;
-            PlayPlayer("Damage3");
+            PlayPlayerDamage("Damage3");
         }
         else if (DamageCounter == 2)
         {
             DamageCounter++;
-            PlayPlayer("Damage2");
+            PlayPlayerDamage("Damage2");
         }
         else
         {
             DamageCounter++;
-            PlayPlayer("Damage1");
+            PlayPlayerDamage("Damage1");
         }
     }
     public void SoftAttack()
@@ -280,6 +280,16 @@ public class AudioManager : MonoBehaviour
         {
             enemySource.clip = s.clip;
             enemySource.Play();
+        }
+    }
+    public void PlayPlayerDamage(string name)
+    {
+        Sound s = Array.Find(sfxSound, x => x.name == name);
+
+        if (s != null)
+        {
+            playerDamageSource.clip = s.clip;
+            playerDamageSource.Play();
         }
     }
 }

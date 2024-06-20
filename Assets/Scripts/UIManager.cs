@@ -115,6 +115,10 @@ public class UIManager : MonoBehaviour
         StartCoroutine(BlendAlpha(0, 1, duration));
         Debug.Log("TimerStarted");
     }
+    public void WinScreen()
+    {
+
+    }
     private IEnumerator BlendAlpha(float startAlpha, float endAlpha, float duration)
     {
         float elapsedTime = 0f;
