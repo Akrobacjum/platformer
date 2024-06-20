@@ -28,6 +28,7 @@ public class EntityAnim : MonoBehaviour
     {
         entityAnimator.SetTrigger("SwingStart");
     }
+
     public void Death()
     {
         Debug.Log("Death");
