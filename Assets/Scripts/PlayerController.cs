@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public Transform Spawn;
 
     public float walkSpeed;
-    [SerializeField] float maxSpeed;
+    [SerializeField] public float maxSpeed;
     [SerializeField] float acceleration;
     [SerializeField] float jumpForce;
 
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isDead = false;
     public bool soundPlayed = false;
+    public bool SideCheck = true;
     void Start()
     {
         Stats = GetComponent<Stats>();
@@ -70,7 +71,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerSpeed = Mathf.Abs((float)rigBody2D.velocity.x);
-            CheckSide();
+            if (SideCheck)
+            {
+                CheckSide();
+            }
             RegenType();
             Move();
             Jump();

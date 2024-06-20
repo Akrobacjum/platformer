@@ -1,6 +1,6 @@
 using UnityEngine;
 
-enum AiState
+public enum AiState
 {
     Patrol,
     Chase,
@@ -9,15 +9,18 @@ enum AiState
 
 public class EnemyBase : MonoBehaviour
 {
-    AiState aiState;
+    public AiState aiState;
     Stats stats;
     [SerializeField] private GameObject[] wayPoints;
-    [SerializeField] GameObject Player;
+    GameObject Player;
+    PlayerController playerController;
+    Rigidbody rgbd;
+    [SerializeField] float damgageToPlayer;
+   
+    EntityAnim entityAnim;
 
-    [SerializeField] Transform raySightPoint;
+    float velY = -9.8f;
 
-
-    SpriteRenderer spriteRenderer;
     int currentPoint = 0;
     public float speed = 1.0f;
 
@@ -27,16 +30,26 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] float rayDistance;
     [SerializeField] float searchLenght;
 
+    Vector2 dir;
     Vector3 lastPosition;
-    //float dirX = 0f; 
-    private bool lineOfSight = false;
-    private bool previousLineOfSight = false;
 
+
+    public int attackStamina = 7;
+
+
+    public bool attacked = false;
+    public bool rightSide;
+
+    public bool attackType;
+    public float DistanceProjectile;
     void Start()
     {
         stats = GetComponent<Stats>();
+        entityAnim =GetComponent<EntityAnim>();
         aiState = AiState.Patrol;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        Player = GameObject.Find("Player");
+        playerController = Player.GetComponent<PlayerController>();
+
     }
 
 
@@ -46,30 +59,57 @@ public class EnemyBase : MonoBehaviour
     {
         if (stats.health > 0)
         {
+            attackType = (Random.value > 0.5f);
             Sight();
+           // transform.position = Vector2.down * velY;
+            StartCoroutine(stats.StaminaRegen());
+            Debug.Log(Player.transform.position);
 
-            switch (aiState)
+            //Debug.DrawLine(transform.position,  *10,Color.red);
+            if (attacked == false)
             {
-                case AiState.Patrol:
-                    MoveToPoints();
-                    PointManager();
-                    break;
-                case AiState.Chase:
-                    ChasePlayer();
-                    break;
-                case AiState.Attack:
+                switch (aiState)
+                {
+                    case AiState.Patrol:
 
-                    break;
+                        MoveToPoints();
+                        PointManager();
+                        break;
+                    case AiState.Chase:
+                        ChasePlayer();
+                        break;
+                    case AiState.Attack:
+                        if (attacked == false && stats.stamina > attackStamina)
+                        {
+                            if (attackType == false)
+                            {
+                                entityAnim.ThrustStart();
+                                stats.stamina -= attackStamina;
+                                attacked = true;
+                            }
+                            else
+                            {
+                                entityAnim.Attack();
+                                stats.stamina -= attackStamina;
+                                attacked = true;
+                            }
+                        }
+
+
+                        break;
+                }
             }
 
             //GETTING VELOCITY HERE
-            if (lastPosition.x < transform.position.x)
+            if (dir.x > 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
+                rightSide = false;
             }
             else
             {
                 transform.localScale = new Vector3(1, 1, 1);
+                rightSide = true;
             }
             lastPosition = transform.position;
         }
@@ -103,71 +143,55 @@ public class EnemyBase : MonoBehaviour
         Vector2 pointPostion = wayPoints[currentPoint].transform.position;
 
         Vector2 newPosition = new Vector2(pointPostion.x, myPosition.y);
+        dir = (pointPostion - myPosition);
 
         transform.position = Vector2.MoveTowards(myPosition, newPosition, speed * Time.deltaTime);
     }
 
-    void RayCast()
-    {
-        RaycastHit2D ray = Physics2D.Raycast(transform.position, Player.transform.position - transform.position, rayDistance, playerMask);
-        if (ray.collider != null)
-        {
-            //Debug.Log(ray.collider.name);
-            lineOfSight = ray.collider.CompareTag("Player");
-            if (lineOfSight)
-            {
-                aiState = AiState.Chase;
-                Debug.DrawRay(transform.position, Player.transform.position - transform.position, Color.green);
-            }
-            else
-            {
-                aiState = AiState.Patrol;
-
-            }
-        }
-        else
-        {
-            aiState = AiState.Patrol;
-            lineOfSight = false;
-        }
-    }
+    
 
     void Sight()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, raySightPoint.position - transform.position, rayDistance, playerMask);
-        if (hit.collider != null)
+        float distanceToPlayerX = Mathf.Abs(Player.transform.position.x - transform.position.x);
+        DistanceProjectile = distanceToPlayerX;
+        //Debug.Log(distanceToPlayerX);
+
+        if (distanceToPlayerX > 4)
         {
-
-            lineOfSight = hit.collider.CompareTag("Player");
-            if (lineOfSight)
-            {
-                aiState = AiState.Chase;
-                Debug.DrawRay(transform.position, raySightPoint.position - transform.position, Color.green);
-            }
-            else
-            {
-                Debug.DrawRay(transform.position, raySightPoint.position - transform.position, Color.red);
-                aiState = AiState.Patrol;
-
-            }
+            aiState = AiState.Patrol;
+        }
+        else if(distanceToPlayerX < 4 && distanceToPlayerX > 1.2f)
+        {
+            aiState = AiState.Chase;
         }
         else
         {
-            aiState = AiState.Patrol;
-            lineOfSight = false;
+            aiState = AiState.Attack;
         }
-
     }
 
     void ChasePlayer()
     {
         Vector2 myPosition = transform.position;
         Vector2 playerPostionX = new Vector2(Player.transform.position.x, myPosition.y);
+        dir = (playerPostionX - myPosition);
 
         transform.position = Vector2.MoveTowards(myPosition, playerPostionX, speed * Time.deltaTime);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player") &&  attacked == true)
+        {
+            Debug.Log("AttackingPlayer");
+            Stats player = collision.gameObject.GetComponent<Stats>();
+            if (player != null)
+            {
+                player.health -= damgageToPlayer;
+            }
+        }
+    }
 
-
+    
 }
 
 
