@@ -62,11 +62,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3984492069367686703, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: health
-      value: 50
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984492069367686703, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
+      propertyPath: stamina
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3984492069367686703, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: healthMax
-      value: 50
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984492069367686703, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
+      propertyPath: staminaMax
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5276654910378974372, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_Sprite
@@ -94,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8011678665229620762, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_Name
-      value: Skeleton (20) Variant
+      value: Zombie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

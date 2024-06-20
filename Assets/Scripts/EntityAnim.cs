@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class EntityAnim : MonoBehaviour
 {
     Animator entityAnimator;
     EnemyBase enemyBase;
+
+    public GameObject Projectile;
+    private Vector2 ShootPosition;
+    [SerializeField] Transform FirePoint;
+    float maxDistance = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +34,26 @@ public class EntityAnim : MonoBehaviour
     {
         entityAnimator.SetTrigger("SwingStart");
     }
+    public void Thrust()
+    {
+        entityAnimator.SetTrigger("Thrust");
 
+
+    }
+    public void ThrustStart()
+    {
+        entityAnimator.SetTrigger("ThrustStart");
+    }
+
+    public void Shoot()
+    {
+        if (enemyBase.DistanceProjectile < 6)
+        {
+            ShootPosition = FirePoint.position;
+            Instantiate(Projectile, ShootPosition, Quaternion.identity);
+        }
+        Destroy(Projectile, 2);
+    }
     public void Death()
     {
         Debug.Log("Death");

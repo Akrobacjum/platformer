@@ -9,10 +9,11 @@ public enum AiState
 
 public class EnemyBase : MonoBehaviour
 {
-    AiState aiState;
+    public AiState aiState;
     Stats stats;
     [SerializeField] private GameObject[] wayPoints;
     GameObject Player;
+    PlayerController playerController;
     Rigidbody rgbd;
     [SerializeField] float damgageToPlayer;
    
@@ -38,15 +39,17 @@ public class EnemyBase : MonoBehaviour
 
     public bool attacked = false;
     public bool rightSide;
+
+    public bool attackType;
+    public float DistanceProjectile;
     void Start()
     {
         stats = GetComponent<Stats>();
         entityAnim =GetComponent<EntityAnim>();
         aiState = AiState.Patrol;
-
         Player = GameObject.Find("Player");
+        playerController = Player.GetComponent<PlayerController>();
 
-        
     }
 
 
@@ -56,6 +59,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (stats.health > 0)
         {
+            attackType = (Random.value > 0.5f);
             Sight();
            // transform.position = Vector2.down * velY;
             StartCoroutine(stats.StaminaRegen());
@@ -77,9 +81,18 @@ public class EnemyBase : MonoBehaviour
                     case AiState.Attack:
                         if (attacked == false && stats.stamina > attackStamina)
                         {
-                            entityAnim.Attack();
-                            stats.stamina -= attackStamina;
-                            attacked = true;
+                            if (attackType == false)
+                            {
+                                entityAnim.ThrustStart();
+                                stats.stamina -= attackStamina;
+                                attacked = true;
+                            }
+                            else
+                            {
+                                entityAnim.Attack();
+                                stats.stamina -= attackStamina;
+                                attacked = true;
+                            }
                         }
 
 
@@ -140,6 +153,7 @@ public class EnemyBase : MonoBehaviour
     void Sight()
     {
         float distanceToPlayerX = Mathf.Abs(Player.transform.position.x - transform.position.x);
+        DistanceProjectile = distanceToPlayerX;
         //Debug.Log(distanceToPlayerX);
 
         if (distanceToPlayerX > 4)

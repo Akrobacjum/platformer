@@ -79,4 +79,16 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetTrigger("Interact");
     }
+    public void SpeedLoss()
+    {
+        PlayerController.walkSpeed = 0;
+        PlayerController.maxSpeed = 0;
+        PlayerController.SideCheck = false;
+    }
+    public void SpeedRegain()
+    {
+        PlayerController.walkSpeed = 2;
+        PlayerController.SideCheck = true;
+        PlayerController.maxSpeed = 4;
+    }
 }

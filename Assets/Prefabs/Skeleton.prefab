@@ -133,6 +133,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: health
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: stamina
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: healthMax
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: staminaMax
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: staminaRegenWhileWalking
       value: 2
       objectReference: {fileID: 0}
@@ -320,6 +336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ba6fe6718e06f4db8cbc33ef1ab323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Projectile: {fileID: 0}
+  FirePoint: {fileID: 0}
 --- !u!61 &2256283669021025981
 BoxCollider2D:
   m_ObjectHideFlags: 0
