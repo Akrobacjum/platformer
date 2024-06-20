@@ -8,7 +8,7 @@ public class PlayerHardAttacker : AttackBase
    
     [SerializeField] GameObject Light;
 
-    [SerializeField] GameObject AudioManager;
+    GameObject AudioManager;
     AudioManager AudioScript;
 
     bool hardAttackTrue = false;
@@ -17,7 +17,7 @@ public class PlayerHardAttacker : AttackBase
     {
         renderer.enabled = false;
         Light.SetActive(false);
-
+        AudioManager = GameObject.FindWithTag("Soundmanager");
         AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     

@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 1742399372427822844, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: m_TagString
+      value: Skeleton
+      objectReference: {fileID: 0}
     - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: Player
       value: 
@@ -119,6 +123,10 @@ PrefabInstance:
     - target: {fileID: 4484314314258205762, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: m_SortingOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578337818842283926, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: m_Name
+      value: Skeleton
       objectReference: {fileID: 0}
     - target: {fileID: 4578337818842283926, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: m_Layer

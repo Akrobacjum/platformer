@@ -5,7 +5,6 @@ using UnityEngine;
 public class Ember : MonoBehaviour
 {
     GameObject Player;
-    PlayerController PlayerController;
     [SerializeField] GameObject UIManager;
     [SerializeField] ParticleSystem Effect;
 
@@ -30,7 +29,6 @@ public class Ember : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerController = Player.GetComponent<PlayerController>();
         Effect.Pause();
         Effect.Clear();
         UIManagerScript = UIManager.GetComponent<UIManager>();

@@ -196,6 +196,22 @@ public class EnemyBase : MonoBehaviour
             }
         }
     }
+    public void SkeletonSwing()
+    {
+        AudioScript.SkeletonSwing();
+    }
+    public void SkeletonThrust()
+    {
+        AudioScript.SkeletonThrust();
+    }
+    public void ZombieClaw()
+    {
+        AudioScript.ZombieClaw();
+    }
+    public void NeuromancerSpell()
+    {
+        AudioScript.NeuromancerSpell();
+    }
 
     
 }

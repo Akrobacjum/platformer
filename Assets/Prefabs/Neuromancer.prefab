@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 2489370843846725546}
   - component: {fileID: 8882023381913412971}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Neuromancer
   m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -398,6 +398,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   damgageToPlayer: 3
+  AudioManager: {fileID: 0}
   speed: 0
   playerMask:
     serializedVersion: 2

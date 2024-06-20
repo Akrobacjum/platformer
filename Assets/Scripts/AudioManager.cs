@@ -9,13 +9,16 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     public Sound[] musicSound, sfxSound;
-    public AudioSource playerSource, hardAttackSource, softAttackSource, firecampSource, musicSource, ambienceSource, enemySource, playerDamageSource;
+    public AudioSource playerSource, hardAttackSource, softAttackSource, firecampSource, musicSource, ambienceSource, enemySource, playerDamageSource, skeletonSource, zombieSource, neuromancerSource;
 
     int DamageCounter = 1;
     int SoftAttackCounter = 1;
     int HardAttackCounter;
     int SoftHitCounter = 1;
     int HardHitCounter = 1;
+    int SkeletonCounter = 1;
+    int ZombieCounter = 1;
+    int NeuromancerCounter = 1;
 
     private void Start()
     {
@@ -212,6 +215,76 @@ public class AudioManager : MonoBehaviour
     {
         playerSource.Stop();
     }
+    public void SkeletonDMG()
+    {
+        if (SkeletonCounter == 5)
+        {
+            SkeletonCounter = 1;
+            PlaySkeleton("SkeletonDMG5");
+        }
+        else if (SkeletonCounter == 4)
+        {
+            SkeletonCounter++;
+            PlaySkeleton("SkeletonDMG4");
+        }
+        else if (SkeletonCounter == 3)
+        {
+            SkeletonCounter++;
+            PlaySkeleton("SkeletonDMG3");
+        }
+        else if (SkeletonCounter == 2)
+        {
+            SkeletonCounter++;
+            PlaySkeleton("SkeletonDMG2");
+        }
+        else if (SkeletonCounter == 1)
+        {
+            SkeletonCounter++;
+            PlaySkeleton("SkeletonDMG1");
+        }
+    }
+    public void ZombieDMG()
+    {
+        if (ZombieCounter == 2)
+        {
+            ZombieCounter = 1;
+            PlayZombie("ZombieDMG2");
+        }
+        else if (ZombieCounter == 1)
+        {
+            ZombieCounter++;
+            PlayZombie("ZombieDMG1");
+        }
+    }
+    public void NeuromancerDMG()
+    {
+        if (NeuromancerCounter == 2)
+        {
+            NeuromancerCounter = 1;
+            PlayNeuromancer("NeuromancerDMG2");
+        }
+        else if (NeuromancerCounter == 1)
+        {
+            NeuromancerCounter++;
+            PlayNeuromancer("NeuromancerDMG1");
+        }
+    }
+    public void SkeletonThrust()
+    {
+        PlaySkeleton("SkeletonThrust");
+    }
+    public void SkeletonSwing()
+    {
+        PlaySkeleton("SkeletonSwing");
+    }
+    public void ZombieClaw()
+    {
+        PlayZombie("ZombieClaw");
+    }
+    public void NeuromancerSpell()
+    {
+        PlayNeuromancer("NeuromancerSpell");
+    }
     public void PlayPlayer(string name)
     {
         Sound s = Array.Find(sfxSound, x => x.name == name);
@@ -290,6 +363,36 @@ public class AudioManager : MonoBehaviour
         {
             playerDamageSource.clip = s.clip;
             playerDamageSource.Play();
+        }
+    }
+    public void PlaySkeleton(string name)
+    {
+        Sound s = Array.Find(sfxSound, x => x.name == name);
+
+        if (s != null)
+        {
+            skeletonSource.clip = s.clip;
+            skeletonSource.Play();
+        }
+    }
+    public void PlayZombie(string name)
+    {
+        Sound s = Array.Find(sfxSound, x => x.name == name);
+
+        if (s != null)
+        {
+            zombieSource.clip = s.clip;
+            zombieSource.Play();
+        }
+    }
+    public void PlayNeuromancer(string name)
+    {
+        Sound s = Array.Find(sfxSound, x => x.name == name);
+
+        if (s != null)
+        {
+            neuromancerSource.clip = s.clip;
+            neuromancerSource.Play();
         }
     }
 }

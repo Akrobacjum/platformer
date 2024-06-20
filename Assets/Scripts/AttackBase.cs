@@ -10,6 +10,9 @@ public class AttackBase : MonoBehaviour
     public Stats Stats;
 
     Transform lastPosition;
+
+    GameObject AudioManager;
+    AudioManager AudioScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,8 +58,9 @@ public class AttackBase : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
 
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
 
-        
         if (collision.gameObject.tag == "Entity")
         {
            
@@ -65,7 +69,19 @@ public class AttackBase : MonoBehaviour
             
             Debug.Log("Attacked " + entityStats.name);
 
-
+            if (collision.gameObject.name == "Skeleton")
+            {
+                Debug.Log("Smash");
+                AudioScript.SkeletonDMG();
+            }
+            else if (collision.gameObject.name == "Zombie")
+            {
+                AudioScript.ZombieDMG();
+            }
+            else if (collision.gameObject.name == "Neuromancer")
+            {
+                AudioScript.NeuromancerDMG();
+            }
         }
     }
 

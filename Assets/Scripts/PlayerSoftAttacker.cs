@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerSoftAttacker : AttackBase
 {
     [SerializeField] GameObject Light;
-    [SerializeField] GameObject AudioManager;
+    GameObject AudioManager;
     AudioManager AudioScript;
 
     bool softAttackTrue = false;
@@ -15,6 +15,7 @@ public class PlayerSoftAttacker : AttackBase
     {
         renderer.enabled = false;
         Light.SetActive(false);
+        AudioManager = GameObject.FindWithTag("Soundmanager");
         AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     //public override void Update()
