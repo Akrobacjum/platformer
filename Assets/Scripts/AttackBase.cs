@@ -65,7 +65,14 @@ public class AttackBase : MonoBehaviour
         {
            
             Stats entityStats = collision.gameObject.GetComponent<Stats>();
-            entityStats.DoDamage(5);
+            if(this.name == "PlayerHardAttack")
+            {
+                entityStats.DoDamage(10);
+            }
+            else
+            {
+                entityStats.DoDamage(5);
+            }
             
             Debug.Log("Attacked " + entityStats.name);
 
