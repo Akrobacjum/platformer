@@ -509,6 +509,9 @@ MonoBehaviour:
   panelImage: {fileID: 0}
   duration: 1
   panelText: {fileID: 0}
+  deathButtonPanel: {fileID: 0}
+  frameImage: {fileID: 0}
+  MenuActive: 0
 --- !u!114 &141661867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +646,9 @@ MonoBehaviour:
   panelImage: {fileID: 0}
   duration: 1
   panelText: {fileID: 0}
+  deathButtonPanel: {fileID: 0}
+  frameImage: {fileID: 0}
+  MenuActive: 0
 --- !u!114 &148973022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,47 +821,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.91
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.6300001
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 950427861158846325, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 4016742608291807070, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1217043836928460559, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+    - target: {fileID: 1915482324362286791, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
@@ -863,7 +869,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6635767a57f9bef47bd3858a581e8838, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 298e30f4aa4a5304db65e8bf97da242c, type: 3}
 --- !u!1 &436221797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,6 +1866,9 @@ MonoBehaviour:
   panelImage: {fileID: 0}
   duration: 1
   panelText: {fileID: 0}
+  deathButtonPanel: {fileID: 0}
+  frameImage: {fileID: 0}
+  MenuActive: 0
 --- !u!4 &1101432703
 Transform:
   m_ObjectHideFlags: 0
@@ -2855,6 +2864,9 @@ MonoBehaviour:
   panelImage: {fileID: 0}
   duration: 1
   panelText: {fileID: 0}
+  deathButtonPanel: {fileID: 0}
+  frameImage: {fileID: 0}
+  MenuActive: 0
 --- !u!114 &1857082121
 MonoBehaviour:
   m_ObjectHideFlags: 0
