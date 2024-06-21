@@ -10,8 +10,13 @@ public class PlayerJumpVFX : MonoBehaviour
     private SpriteRenderer Renderer;
 
     bool isEnabled = false;
+
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
     void Start()
     {
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
 
         JumpVFXAnimator = GetComponent<Animator>();
         
@@ -30,7 +35,7 @@ public class PlayerJumpVFX : MonoBehaviour
     }
     public void LaunchVfx()
     {
-
+        JumpSFX();
         isEnabled = true;
         Renderer.enabled = true;
         JumpVFXAnimator.SetTrigger("JumpVFX");
@@ -44,5 +49,8 @@ public class PlayerJumpVFX : MonoBehaviour
         Light.SetActive(false);
         JumpVFXAnimator.ResetTrigger("JumpVFX");
     }
-    
+    public void JumpSFX()
+    {
+        AudioScript.Jump();
+    }   
 }

@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7717999222216333020, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: damgageToPlayer
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8011678665229620762, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_Name

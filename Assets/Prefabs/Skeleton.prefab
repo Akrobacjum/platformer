@@ -53,12 +53,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: attackStamina
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: raySightPoint
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: damgageToPlayer
-      value: 3
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2149103559976979680, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: m_Size.x
@@ -142,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: health
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: stamina
@@ -150,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: healthMax
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: staminaMax
@@ -346,6 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 0}
   FirePoint: {fileID: 0}
+  AudioManager: {fileID: 0}
 --- !u!61 &2256283669021025981
 BoxCollider2D:
   m_ObjectHideFlags: 0

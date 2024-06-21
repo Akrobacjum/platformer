@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     GameObject Player;
     Stats Stats;
     float speed = 1;
-    float damage = 2;
+    [SerializeField] float damage = 2;
 
     [SerializeField] GameObject AudioManager;
     AudioManager AudioScript;

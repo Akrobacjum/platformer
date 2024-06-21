@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] float duration = 1.0f;
     [SerializeField] TextMeshProUGUI panelText;
 
-    bool MenuActive;
+    public bool MenuActive;
     bool CharacterSubmenuActive;
     bool MapSubmenuActive;
     private void Start()

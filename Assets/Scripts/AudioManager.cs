@@ -11,6 +11,9 @@ public class AudioManager : MonoBehaviour
     public Sound[] musicSound, sfxSound;
     public AudioSource playerSource, hardAttackSource, softAttackSource, firecampSource, musicSource, ambienceSource, enemySource, playerDamageSource, skeletonSource, zombieSource, neuromancerSource;
 
+    [SerializeField] GameObject UIManager;
+    UIManager UIManagerScript;
+    
     int DamageCounter = 1;
     int SoftAttackCounter = 1;
     int HardAttackCounter;
@@ -22,6 +25,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        UIManagerScript = UIManager.GetComponent<UIManager>();
         playerSource.Play();
         hardAttackSource.Play();
         softAttackSource.Play();
@@ -45,74 +49,79 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayerDamage()
     {
-        Debug.Log("Seggs");
-        if (DamageCounter == 7)
+        if (UIManagerScript.MenuActive == false)
         {
-            DamageCounter = 1;
-            PlayPlayerDamage("Damage7");
-        }
-        else if (DamageCounter == 6)
-        {
-            DamageCounter++;
-            PlayPlayerDamage("Damage6");
-        }
-        else if (DamageCounter == 5)
-        {
-            DamageCounter++;
-            PlayPlayerDamage("Damage5");
-        }
-        else if (DamageCounter == 4)
-        {
-            DamageCounter++;
-            PlayPlayerDamage("Damage4");
-        }
-        else if (DamageCounter == 3)
-        {
-            DamageCounter++;
-            PlayPlayerDamage("Damage3");
-        }
-        else if (DamageCounter == 2)
-        {
-            DamageCounter++;
-            PlayPlayerDamage("Damage2");
-        }
-        else
-        {
-            DamageCounter++;
-            PlayPlayerDamage("Damage1");
+            if (DamageCounter == 7)
+            {
+                DamageCounter = 1;
+                PlayPlayerDamage("Damage7");
+            }
+            else if (DamageCounter == 6)
+            {
+                DamageCounter++;
+                PlayPlayerDamage("Damage6");
+            }
+            else if (DamageCounter == 5)
+            {
+                DamageCounter++;
+                PlayPlayerDamage("Damage5");
+            }
+            else if (DamageCounter == 4)
+            {
+                DamageCounter++;
+                PlayPlayerDamage("Damage4");
+            }
+            else if (DamageCounter == 3)
+            {
+                DamageCounter++;
+                PlayPlayerDamage("Damage3");
+            }
+            else if (DamageCounter == 2)
+            {
+                DamageCounter++;
+                PlayPlayerDamage("Damage2");
+            }
+            else
+            {
+                DamageCounter++;
+                PlayPlayerDamage("Damage1");
+            }
         }
     }
     public void SoftAttack()
     {
-        if (SoftAttackCounter == 6)
+        if (UIManagerScript.MenuActive == false)
         {
-            SoftAttackCounter = 1;
-            PlaySoftAttack("SoftAttack6");
-        }
-        else if (SoftAttackCounter == 5)
-        {
-            SoftAttackCounter++;
-            PlaySoftAttack("SoftAttack5");
-        }
-        else if (SoftAttackCounter == 4)
-        {
-            SoftAttackCounter++;
-            PlaySoftAttack("SoftAttack4");
-        }
-        else if (SoftAttackCounter == 3)
-        {
-            SoftAttackCounter++;
-            PlaySoftAttack("SoftAttack3");
-        }
-        else if (SoftAttackCounter == 2)
-        {
-            SoftAttackCounter++;
-            PlaySoftAttack("SoftAttack2");
-        }
-        else
-        {
-            SoftAttackCounter++;
-            PlaySoftAttack("SoftAttack1");
+            if (SoftAttackCounter == 6)
+            {
+                SoftAttackCounter = 1;
+                PlaySoftAttack("SoftAttack6");
+            }
+            else if (SoftAttackCounter == 5)
+            {
+                SoftAttackCounter++;
+                PlaySoftAttack("SoftAttack5");
+            }
+            else if (SoftAttackCounter == 4)
+            {
+                SoftAttackCounter++;
+                PlaySoftAttack("SoftAttack4");
+            }
+            else if (SoftAttackCounter == 3)
+            {
+                SoftAttackCounter++;
+                PlaySoftAttack("SoftAttack3");
+            }
+            else if (SoftAttackCounter == 2)
+            {
+                SoftAttackCounter++;
+                PlaySoftAttack("SoftAttack2");
+            }
+            else
+            {
+                SoftAttackCounter++;
+                PlaySoftAttack("SoftAttack1");
+            }
         }
     }
     public void HardAttack()
@@ -166,6 +175,11 @@ public class AudioManager : MonoBehaviour
             PlayEnemy("SoftHit1");
         }
     }
+    public void Jump()
+    {
+        playerSource.Play();
+        PlayPlayer("JumpSFX");
+    }
 
     public void HardHit()
     {
@@ -187,8 +201,13 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayerDeath()
     {
+        musicSource.Play();
+        PlayMusic("Death");
+    }
+    public void ElfDeath()
+    {
         playerSource.Play();
-        PlayPlayer("Death");
+        PlayPlayer("ElfDeath");
     }
     public void PlayerJumpSFX()
     {
