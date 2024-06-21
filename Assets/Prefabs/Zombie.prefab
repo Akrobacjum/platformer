@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2344126818611792343
+--- !u!1001 &2558537717961635897
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 9938a96b8633a57498805e65f084dd48, type: 2}
     - target: {fileID: 1072981610145730805, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.49
+      value: 315.0219
       objectReference: {fileID: 0}
     - target: {fileID: 1072981610145730805, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.03
+      value: -30.043808
       objectReference: {fileID: 0}
     - target: {fileID: 1072981610145730805, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_LocalPosition.z
@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2783740947889305583, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.76
+      objectReference: {fileID: 0}
     - target: {fileID: 3680257394120874056, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -76,6 +80,10 @@ PrefabInstance:
       propertyPath: staminaMax
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 5226577236222439280, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
+      propertyPath: m_Name
+      value: Zombie
+      objectReference: {fileID: 0}
     - target: {fileID: 5276654910378974372, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -98,11 +106,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7717999222216333020, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: damgageToPlayer
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8011678665229620762, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
       propertyPath: m_Name
       value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918932223377210993, guid: f0caf9cbfa248464da0c861a9b27d277, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

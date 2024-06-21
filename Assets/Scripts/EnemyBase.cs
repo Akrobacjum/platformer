@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public enum AiState
 {
@@ -16,7 +17,9 @@ public class EnemyBase : MonoBehaviour
     PlayerController playerController;
     Rigidbody rgbd;
     [SerializeField] float damgageToPlayer;
-   
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
+
     EntityAnim entityAnim;
 
     float velY = -9.8f;
@@ -50,6 +53,8 @@ public class EnemyBase : MonoBehaviour
         aiState = AiState.Patrol;
         Player = GameObject.Find("Player");
         playerController = Player.GetComponent<PlayerController>();
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
 
     }
 
@@ -64,7 +69,6 @@ public class EnemyBase : MonoBehaviour
             Sight();
            // transform.position = Vector2.down * velY;
             StartCoroutine(stats.StaminaRegen());
-            
 
             //Debug.DrawLine(transform.position,  *10,Color.red);
             if (attacked == false)
@@ -188,9 +192,27 @@ public class EnemyBase : MonoBehaviour
             Stats player = collision.gameObject.GetComponent<Stats>();
             if (player != null)
             {
+                Debug.Log("skibidi");
                 player.health -= damgageToPlayer;
+                AudioScript.PlayerDamage();
             }
         }
+    }
+    public void SkeletonSwing()
+    {
+        AudioScript.SkeletonSwing();
+    }
+    public void SkeletonThrust()
+    {
+        AudioScript.SkeletonThrust();
+    }
+    public void ZombieClaw()
+    {
+        AudioScript.ZombieClaw();
+    }
+    public void NeuromancerSpell()
+    {
+        AudioScript.NeuromancerSpell();
     }
 
     

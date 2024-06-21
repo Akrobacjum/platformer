@@ -8,12 +8,18 @@ public class Projectile : MonoBehaviour
     GameObject Player;
     Stats Stats;
     float speed = 1;
-    float damage = 2;
+    [SerializeField] float damage = 2;
+
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player");
         Stats = Player.GetComponent<Stats>();
+
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
     private void Awake()
     {
@@ -36,6 +42,7 @@ public class Projectile : MonoBehaviour
         {
             Stats.health = Stats.health - damage;
             Destroy(gameObject);
+            AudioScript.PlayerDamage();
         }else if(collision2D.gameObject.CompareTag("Entity"))
         {
 

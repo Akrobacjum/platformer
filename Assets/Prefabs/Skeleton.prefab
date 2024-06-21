@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 1742399372427822844, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: m_TagString
+      value: Skeleton
+      objectReference: {fileID: 0}
     - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: Player
       value: 
@@ -49,12 +53,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: attackStamina
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: raySightPoint
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2025171593453946426, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: damgageToPlayer
-      value: 3
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2149103559976979680, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: m_Size.x
@@ -121,6 +129,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4578337818842283926, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
+      propertyPath: m_Name
+      value: Skeleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578337818842283926, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
@@ -134,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: health
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: stamina
@@ -142,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: healthMax
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4632743719513061065, guid: daaabc363eb00334ea9ee17420e8f0a1, type: 3}
       propertyPath: staminaMax
@@ -284,7 +296,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5226577236222439280}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -338,6 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 0}
   FirePoint: {fileID: 0}
+  AudioManager: {fileID: 0}
 --- !u!61 &2256283669021025981
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -79,6 +79,10 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetTrigger("Interact");
     }
+    public void Death()
+    {
+        animator.SetTrigger("Death");
+    }
     public void SpeedLoss()
     {
         PlayerController.walkSpeed = 0;

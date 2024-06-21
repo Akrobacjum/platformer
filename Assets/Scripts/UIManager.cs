@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image deathButtonPanel;
     [SerializeField] Image frameImage;
     bool MenuActive;
+
+    public bool MenuActive;
     bool CharacterSubmenuActive;
     bool MapSubmenuActive;
     private void Start()
@@ -119,6 +121,10 @@ public class UIManager : MonoBehaviour
         StartCoroutine(BlendAlpha(0, 1, duration));
         
         Debug.Log("TimerStarted");
+    }
+    public void WinScreen()
+    {
+
     }
     private IEnumerator BlendAlpha(float startAlpha, float endAlpha, float duration)
     {

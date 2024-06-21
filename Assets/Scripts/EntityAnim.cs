@@ -12,11 +12,17 @@ public class EntityAnim : MonoBehaviour
     private Vector2 ShootPosition;
     [SerializeField] Transform FirePoint;
     float maxDistance = 1;
+
+    [SerializeField] GameObject AudioManager;
+    AudioManager AudioScript;
     // Start is called before the first frame update
     void Start()
     {
         entityAnimator = GetComponent<Animator>();
         enemyBase = GetComponent<EnemyBase>();
+
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -49,6 +55,7 @@ public class EntityAnim : MonoBehaviour
     {
         if (enemyBase.DistanceProjectile < 6)
         {
+            AudioScript.NeuromancerSpell();
             ShootPosition = FirePoint.position;
             Instantiate(Projectile, ShootPosition, Quaternion.identity);
         }

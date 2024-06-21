@@ -239,6 +239,16 @@ public class PlayerController : MonoBehaviour
             hardAttacker.HardAttack();
             isAttacking = true;
         }
+        if (isAttacking)
+        {
+            Stats.staminaRegenWhileWalking = 0;
+            Stats.staminaRegenWhileStanding = 0;
+        }
+        else
+        {
+            Stats.staminaRegenWhileWalking = 5;
+            Stats.staminaRegenWhileStanding = 10;
+        }
 
     }
     public bool GroundCheckBox()
@@ -266,12 +276,26 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    public void DeathSFX()
+    {
+        AudioScript.ElfDeath();
+    }
+    public void WalkSFX()
+    {
+        AudioScript.PlayerWalk();
+    }
+    public void RunSFX()
+    {
+        AudioScript.PlayerRun();
+    }
     public void Dead()
     {
         if (isDead == false)
         {
             Debug.Log("You Died");
             Manager.DeathScreen();
+            PlayerAnimator.Death();
+            AudioScript.PlayerDeath();
             isDead = true;
         }
     }
