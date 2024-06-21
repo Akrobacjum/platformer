@@ -83,6 +83,9 @@ public class Firecamp : MonoBehaviour
             if (isUnlocked && Input.GetButtonDown("Interact"))
             {
                 Debug.Log("Campfire: Interaction");
+                PlayerAnimator.Interaction();
+                Stats.health = Stats.healthMax;
+                Stats.stamina = Stats.staminaMax;
 
             }
             else if (Input.GetButtonDown("Interact") && isInteracted == false)
@@ -90,6 +93,8 @@ public class Firecamp : MonoBehaviour
                 isInteracted = true;
                 PlayerAnimator.Interaction();
                 Invoke("FirecampUnlock", 3.0f);
+                Stats.health = Stats.healthMax;
+                Stats.stamina = Stats.staminaMax;
             }
         }
     }

@@ -36,7 +36,7 @@ public class PlayerSoftAttacker : AttackBase
     {
         keepPosition = true;
 
-        Debug.Log(player.side);
+        
         if (softAttackTrue)
         {
             if (coroutineStarted == false)

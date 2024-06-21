@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     }
     private void Awake()
     {
-        Destroy(gameObject, 2);
+        Destroy(gameObject, 4);
     }
 
     // Update is called once per frame
@@ -29,12 +29,21 @@ public class Projectile : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(myPosition, playerPostionX, speed * Time.deltaTime);
     }
-    public void OnCollisionEnter2D(Collision2D collision2D)
+    
+    public void OnTriggerEnter2D(Collider2D collision2D)
     {
-        if(collision2D.gameObject.CompareTag ("Player"))
+        if (collision2D.gameObject.CompareTag("Player"))
         {
             Stats.health = Stats.health - damage;
             Destroy(gameObject);
+        }else if(collision2D.gameObject.CompareTag("Entity"))
+        {
+
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

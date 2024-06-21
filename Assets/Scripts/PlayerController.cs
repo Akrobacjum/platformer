@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private new Collider2D collider;
     public PlayerSoftAttacker softAttacker;
     public PlayerHardAttacker hardAttacker;
-    public Firecamp Firecamp;
+    public GameObject Firecamp;
 
     [SerializeField] GameObject AudioManager;
     AudioManager AudioScript;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
 
     public LayerMask platformMask;
-    public Transform Spawn;
+    public GameObject Spawn;
 
     public float walkSpeed;
     [SerializeField] public float maxSpeed;
@@ -55,11 +55,14 @@ public class PlayerController : MonoBehaviour
         jumpCount = 0f;
         currentJumpTime = 0f;
 
-        rigBody2D.MovePosition(Spawn.position);
+        rigBody2D.MovePosition(Spawn.transform.position);
 
         Stats.staminaRegen = false;
 
         AudioScript = AudioManager.GetComponent<AudioManager>();
+        Firecamp = Spawn;
+
+       
     }
     void Update()
     {
@@ -148,7 +151,7 @@ public class PlayerController : MonoBehaviour
                 if (soundPlayed == false)
                 {
                     soundPlayed = true;
-                    AudioScript.PlayerWalk();
+                        AudioScript.PlayerWalk();
                 }
                 else if (speed > 3)
                 {
@@ -162,7 +165,7 @@ public class PlayerController : MonoBehaviour
             else if (dirX == 0)
             {
                 soundPlayed = false;
-                AudioScript.PlayerStop();
+               // AudioScript.PlayerStop();
             }
         }
     }
