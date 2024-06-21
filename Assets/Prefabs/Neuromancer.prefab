@@ -250,6 +250,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   damgageToPlayer: 3
+  isMovable: 0
   AudioManager: {fileID: 0}
   speed: 0
   playerMask:

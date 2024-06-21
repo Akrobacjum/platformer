@@ -24,6 +24,7 @@ public class EnemyBase : MonoBehaviour
 
     float velY = -9.8f;
 
+    public bool isMovable = true;
     int currentPoint = 0;
     public float speed = 1.0f;
 
@@ -68,6 +69,7 @@ public class EnemyBase : MonoBehaviour
             Sight();
            // transform.position = Vector2.down * velY;
             StartCoroutine(stats.StaminaRegen());
+            
 
             //Debug.DrawLine(transform.position,  *10,Color.red);
             if (attacked == false)
@@ -75,9 +77,12 @@ public class EnemyBase : MonoBehaviour
                 switch (aiState)
                 {
                     case AiState.Patrol:
-
-                        MoveToPoints();
-                        PointManager();
+                        if(isMovable)
+                        {
+                            MoveToPoints();
+                            PointManager();
+                        }
+                       
                         break;
                     case AiState.Chase:
                         ChasePlayer();
@@ -98,8 +103,6 @@ public class EnemyBase : MonoBehaviour
                                 attacked = true;
                             }
                         }
-
-
                         break;
                 }
             }
@@ -186,7 +189,7 @@ public class EnemyBase : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player") &&  attacked == true)
         {
-            Debug.Log("AttackingPlayer");
+            
             Stats player = collision.gameObject.GetComponent<Stats>();
             if (player != null)
             {

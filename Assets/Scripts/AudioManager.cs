@@ -216,7 +216,7 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayerWalk()
     {
-        Debug.Log("S");
+        ;
         playerSource.Play();
         PlayPlayer("Walk");
     }

@@ -59,7 +59,7 @@ public class EntityAnim : MonoBehaviour
             ShootPosition = FirePoint.position;
             Instantiate(Projectile, ShootPosition, Quaternion.identity);
         }
-        Destroy(Projectile, 2);
+        
     }
     public void Death()
     {
