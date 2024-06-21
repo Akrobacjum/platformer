@@ -15,7 +15,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI panelText;
     [SerializeField] Image deathButtonPanel;
     [SerializeField] Image frameImage;
+<<<<<<< HEAD
     bool MenuActive;
+=======
+>>>>>>> origin/Dawid
 
     public bool MenuActive;
     bool CharacterSubmenuActive;

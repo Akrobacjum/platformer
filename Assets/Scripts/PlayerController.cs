@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public PlayerHardAttacker hardAttacker;
     public GameObject Firecamp;
 
-    [SerializeField] GameObject AudioManager;
+    GameObject AudioManager;
     AudioManager AudioScript;
 
     public float dirX;
@@ -59,13 +59,12 @@ public class PlayerController : MonoBehaviour
 
         Stats.staminaRegen = false;
 
-        AudioScript = AudioManager.GetComponent<AudioManager>();
         Firecamp = Spawn;
-
-       
     }
     void Update()
     {
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
         if (Stats.health <= 0f)
         {
             Dead();
@@ -135,7 +134,8 @@ public class PlayerController : MonoBehaviour
         }
         else //NOT RUNING
         {
-
+            AudioManager = GameObject.FindWithTag("Soundmanager");
+            AudioScript = AudioManager.GetComponent<AudioManager>();
             PlayerAnimator.StopRun();
 
             if (Stats.staminaRegen == false)
@@ -164,8 +164,10 @@ public class PlayerController : MonoBehaviour
             }
             else if (dirX == 0)
             {
+                AudioManager = GameObject.FindWithTag("Soundmanager");
+                AudioScript = AudioManager.GetComponent<AudioManager>();
                 soundPlayed = false;
-               // AudioScript.PlayerStop();
+               AudioScript.PlayerStop();
             }
         }
     }
@@ -282,10 +284,14 @@ public class PlayerController : MonoBehaviour
     }
     public void WalkSFX()
     {
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
         AudioScript.PlayerWalk();
     }
     public void RunSFX()
     {
+        AudioManager = GameObject.FindWithTag("Soundmanager");
+        AudioScript = AudioManager.GetComponent<AudioManager>();
         AudioScript.PlayerRun();
     }
     public void Dead()

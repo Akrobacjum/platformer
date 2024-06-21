@@ -69,6 +69,7 @@ public class EnemyBase : MonoBehaviour
             Sight();
            // transform.position = Vector2.down * velY;
             StartCoroutine(stats.StaminaRegen());
+            
 
             //Debug.DrawLine(transform.position,  *10,Color.red);
             if (attacked == false)
